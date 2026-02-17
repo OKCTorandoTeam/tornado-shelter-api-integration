@@ -1,7 +1,7 @@
-🌪️ ## **Tornado Shelter Alert App - API Integration**
+## 🌪️ **Tornado Shelter Alert App - API Integration**
 Weather API integration files for the Tornado Shelter Alert App, designed to help Oklahoma residents find nearby tornado shelters and receive real-time weather alerts.
 
-📋 ## **Table of Contents**
+## 📋 **Table of Contents**
 
 Overview
 Architecture Options
@@ -34,17 +34,23 @@ Supabase Schema ✅ Verified in PostgreSQL
 Architecture Options
 We have implemented two architecture approaches. The team should decide which to use:
 Option A: Direct API Calls (Simpler)
+
+```
 ┌─────────────────┐     ┌─────────────────┐
 │  React Native   │────▶│   NWS API       │
 │      App        │────▶│   SPC API       │
 │                 │────▶│   FEMA API      │
 │                 │────▶│   OpenWeather   │
 └─────────────────┘     └─────────────────┘
+```
+
 Pros: Simple, no backend needed, faster to implement
 Cons: No data persistence, shelter updates require app release
 Files: services/weatherDataService.js
 
 Option B: Supabase Backend (More Robust)
+
+```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │  React Native   │────▶│    Supabase     │────▶│   External      │
 │      App        │     │   (PostgreSQL)  │     │     APIs        │
@@ -56,6 +62,8 @@ Option B: Supabase Backend (More Robust)
                         │  Alert History  │
                         │  Storm Reports  │
                         └─────────────────┘
+```
+                        
 Pros: Data persistence, easy shelter updates, historical tracking
 Cons: Requires Supabase setup, slight additional complexity
 Files: database/supabase_schema.sql, services/supabaseWeatherService.js
