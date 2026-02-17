@@ -1,0 +1,309 @@
+# ============================================================
+# TORNADO SHELTER ALERT APP - API INTEGRATION INFO
+# ============================================================
+# 
+# This file contains all API endpoints, configuration details,
+# and setup instructions for the weather data integrations.
+#
+# SECURITY NOTE: Do NOT commit actual API keys to this file.
+# Use environment variables or a separate .env file (gitignored).
+#
+# Last Updated: February 2026
+# ============================================================
+
+
+# ============================================================
+# 1. OPENWEATHER API (Currently Integrated)
+# ============================================================
+
+API Provider: OpenWeather
+Website: https://openweathermap.org/
+Documentation: https://openweathermap.org/api
+
+## Endpoints Used:
+- Current Weather: https://api.openweathermap.org/data/2.5/weather
+- 5-Day Forecast: https://api.openweathermap.org/data/2.5/forecast
+- One Call API 3.0: https://api.openweathermap.org/data/3.0/onecall
+
+## Authentication:
+- Type: API Key (query parameter)
+- Parameter Name: appid
+- Example: ?appid=YOUR_API_KEY
+
+## API Key Location:
+- Store in: .env file (not committed to repo)
+- Variable Name: OPENWEATHER_API_KEY
+- Current Status: [TEAM HAS KEY - DO NOT SHARE IN REPO]
+
+## Rate Limits (Free Tier):
+- Current Weather: 60 calls/minute, 1,000,000 calls/month
+- One Call API 3.0: 1,000 calls/day
+
+## Example Request:
+GET https://api.openweathermap.org/data/2.5/weather?lat=35.4676&lon=-97.5164&appid=YOUR_KEY&units=metric
+
+
+# ============================================================
+# 2. NATIONAL WEATHER SERVICE (NWS) API
+# ============================================================
+
+API Provider: NOAA / National Weather Service
+Website: https://www.weather.gov/
+Documentation: https://www.weather.gov/documentation/services-web-api
+API Specification: https://api.weather.gov/openapi.json
+
+## Endpoints Used:
+- Active Alerts by Point: https://api.weather.gov/alerts/active?point={lat},{lon}
+- Active Alerts by State: https://api.weather.gov/alerts/active?area={state}
+- All Active Alerts: https://api.weather.gov/alerts/active
+- Point Metadata: https://api.weather.gov/points/{lat},{lon}
+- Forecast: https://api.weather.gov/gridpoints/{office}/{x},{y}/forecast
+
+## Authentication:
+- Type: User-Agent Header (required)
+- No API Key Required
+- Header Example: User-Agent: TornadoShelterApp/1.0 (contact@email.com)
+
+## Rate Limits:
+- Not publicly specified
+- Reasonable use expected
+- Implement caching (recommended: 2 minutes for alerts)
+
+## Example Request:
+GET https://api.weather.gov/alerts/active?point=35.4676,-97.5164
+Headers: 
+  User-Agent: TornadoShelterApp/1.0 (team@email.com)
+  Accept: application/geo+json
+
+## Response Format: GeoJSON
+
+## Oklahoma-Specific:
+- State Code: OK
+- Example: https://api.weather.gov/alerts/active?area=OK
+
+
+# ============================================================
+# 3. STORM PREDICTION CENTER (SPC) - NOAA
+# ============================================================
+
+API Provider: NOAA Storm Prediction Center
+Website: https://www.spc.noaa.gov/
+Data Page: https://www.spc.noaa.gov/wcm/#data
+GIS Data: https://www.spc.noaa.gov/gis/svrgis/
+
+## Endpoints Used (Today's Reports - CSV):
+- Tornado Reports: https://www.spc.noaa.gov/climo/reports/today_torn.csv
+- Wind Reports: https://www.spc.noaa.gov/climo/reports/today_wind.csv
+- Hail Reports: https://www.spc.noaa.gov/climo/reports/today_hail.csv
+
+## Authentication:
+- None Required
+- Public Access
+
+## Data Format: CSV
+- Columns: Time, F-Scale/Speed/Size, Location, County, State, Lat, Lon, Comments
+
+## Historical Data:
+- CSV Files: https://www.spc.noaa.gov/wcm/#data
+- Shapefiles: https://www.spc.noaa.gov/gis/svrgis/
+
+## Rate Limits:
+- None specified
+- Implement caching (recommended: 10 minutes)
+
+
+# ============================================================
+# 4. FEMA NATIONAL SHELTER SYSTEM
+# ============================================================
+
+API Provider: FEMA (via ArcGIS REST Services)
+Website: https://gis.fema.gov/
+Documentation: ArcGIS REST API
+
+## Endpoint:
+Base URL: https://gis.fema.gov/arcgis/rest/services/NSS/OpenShelters/MapServer/0/query
+
+## Authentication:
+- None Required
+- Public Access
+
+## Query Parameters:
+- where: SQL-like filter (e.g., "SHELTER_STATE='OK'")
+- outFields: * (all fields) or specific field names
+- f: json (response format)
+- returnGeometry: true (include coordinates)
+
+## Example Request (Oklahoma Shelters):
+GET https://gis.fema.gov/arcgis/rest/services/NSS/OpenShelters/MapServer/0/query?where=SHELTER_STATE='OK'&outFields=*&f=json&returnGeometry=true
+
+## Example Request (Nearby Shelters):
+GET https://gis.fema.gov/arcgis/rest/services/NSS/OpenShelters/MapServer/0/query?where=SHELTER_STATUS='OPEN'&geometry=-97.5164,35.4676&geometryType=esriGeometryPoint&spatialRel=esriSpatialRelIntersects&distance=80467&units=esriSRUnit_Meter&outFields=*&f=json&returnGeometry=true
+
+## Key Fields Returned:
+- SHELTER_NAME
+- ADDRESS, CITY, SHELTER_STATE, ZIP
+- TOTAL_POPULATION (capacity)
+- EVACUEES_CURRENT (current occupancy)
+- SHELTER_STATUS (OPEN/CLOSED)
+- ACCEPTING_PETS (Y/N)
+- ADA_COMPLIANT (Y/N)
+
+## Note:
+- Shelters only appear when opened during active disasters
+- Data syncs with Red Cross every 20 minutes
+
+
+# ============================================================
+# 5. NCEI STORM EVENTS DATABASE (Historical Data)
+# ============================================================
+
+Provider: NOAA National Centers for Environmental Information
+Website: https://www.ncei.noaa.gov/stormevents/
+Bulk Download: https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/
+
+## Data Available:
+- Storm events from 1950 to present
+- Updated monthly (~75 day delay)
+- Includes: tornadoes, hail, wind, floods, etc.
+
+## CSV File Types:
+- StormEvents_details: Full event information
+- StormEvents_fatalities: Fatality records
+- StormEvents_locations: Geographic data
+
+## File Format Documentation:
+https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/Storm-Data-Bulk-csv-Format.pdf
+
+## Authentication:
+- None Required
+- Public Access
+
+
+# ============================================================
+# 6. SUPABASE CONFIGURATION (If Using Backend Option)
+# ============================================================
+
+Provider: Supabase
+Website: https://supabase.com/
+Documentation: https://supabase.com/docs
+
+## Project Setup:
+1. Create account at https://supabase.com/
+2. Create new project
+3. Run SQL schema (supabase_schema.sql)
+
+## Credentials Needed:
+- Project URL: https://[PROJECT_ID].supabase.co
+- Anon Key: (public, safe for client-side)
+- Service Role Key: (private, server-side only - DO NOT COMMIT)
+
+## Environment Variables:
+SUPABASE_URL=https://[PROJECT_ID].supabase.co
+SUPABASE_ANON_KEY=[your-anon-key]
+
+## Database Tables:
+- shelters: Oklahoma shelter locations
+- weather_alerts_history: Logged NWS alerts
+- storm_reports_history: Logged SPC reports
+- app_config: App configuration
+
+## SDK Installation:
+npm install @supabase/supabase-js
+
+
+# ============================================================
+# 7. ENVIRONMENT VARIABLES TEMPLATE
+# ============================================================
+
+# Create a .env file in your project root with these variables:
+# (Do NOT commit .env to git - add to .gitignore)
+
+# --- Copy below this line for .env file ---
+
+# OpenWeather API
+OPENWEATHER_API_KEY=your_openweather_api_key_here
+
+# Supabase (if using backend option)
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_ANON_KEY=your_anon_key_here
+
+# App Configuration
+APP_USER_AGENT=TornadoShelterApp/1.0 (team@email.com)
+DEFAULT_STATE=OK
+
+# --- End of .env template ---
+
+
+# ============================================================
+# 8. GITIGNORE ADDITIONS
+# ============================================================
+
+# Add these to your .gitignore to prevent committing secrets:
+
+.env
+.env.local
+.env.production
+*.secret
+api_keys.txt
+secrets/
+
+
+# ============================================================
+# 9. CODE FILES IN THIS REPO
+# ============================================================
+
+## Direct API Approach:
+- weatherDataService.js - Unified service for NWS, SPC, FEMA APIs
+- weatherDataServiceExamples.js - Usage examples
+- test-weather-apis.js - Node.js test script
+- package.json - Node.js configuration (for testing)
+
+## Supabase Approach:
+- supabase_schema.sql - Database schema and functions
+- supabaseWeatherService.js - Supabase-integrated service
+- supabaseWeatherServiceExamples.js - Usage examples
+
+## Data Pull Scripts:
+- pull-meeting-data.js - Pulls live data for demos
+
+## Documentation:
+- API_INTEGRATION_INFO.txt - This file
+- tornado_app_data_resources.docx - Data sources reference
+- team_architecture_decision.docx - Architecture decision document
+
+
+# ============================================================
+# 10. QUICK START CHECKLIST
+# ============================================================
+
+[ ] 1. Clone the repository
+[ ] 2. Copy .env.example to .env (or create .env from template above)
+[ ] 3. Add your OpenWeather API key to .env
+[ ] 4. If using Supabase: Add Supabase credentials to .env
+[ ] 5. Run: npm install (if package.json exists)
+[ ] 6. Test APIs: node test-weather-apis.js
+[ ] 7. Pull demo data: node pull-meeting-data.js
+
+
+# ============================================================
+# 11. TEAM CONTACTS & RESOURCES
+# ============================================================
+
+## Team Resources:
+- GitHub Repo: [INSERT REPO URL]
+- Team Gmail: [INSERT TEAM EMAIL]
+- Supabase Project: [INSERT AFTER SETUP]
+
+## API Support Links:
+- OpenWeather Support: https://openweathermap.org/faq
+- NWS API Issues: https://github.com/weather-gov/api/issues
+- Supabase Discord: https://discord.supabase.com/
+
+## Oklahoma Emergency Resources:
+- OK Emergency Management: https://oklahoma.gov/oem.html
+- SoonerSafe Program: https://oklahoma.gov/oem/programs-and-services/soonersafe-safe-room-rebate-program.html
+
+
+# ============================================================
+# END OF FILE
+# ============================================================
