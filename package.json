@@ -1,0 +1,13 @@
+{
+  "name": "weather-api-test",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Test script for tornado shelter app weather APIs",
+  "scripts": {
+    "test": "node test-weather-apis.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.96.0",
+    "dotenv": "^17.3.1"
+  }
+}

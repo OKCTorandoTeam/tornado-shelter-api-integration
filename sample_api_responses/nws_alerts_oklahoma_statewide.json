@@ -1,0 +1,27 @@
+{
+  "pulledAt": "2026-03-01T17:57:10.777Z",
+  "state": "Oklahoma",
+  "alertCount": 2,
+  "alerts": [
+    {
+      "id": "urn:oid:2.49.0.1.840.0.5476120ec3d3f671aca371b3edc575df28d78d15.001.1",
+      "event": "Severe Thunderstorm Warning",
+      "headline": "Severe Thunderstorm Warning issued March 1 at 11:45AM CST until March 1 at 12:00PM CST by NWS Norman OK",
+      "severity": "Severe",
+      "areaDesc": "Lincoln, OK; Payne, OK",
+      "onset": "2026-03-01T11:45:00-06:00",
+      "expires": "2026-03-01T12:00:00-06:00",
+      "isTornadoRelated": false
+    },
+    {
+      "id": "urn:oid:2.49.0.1.840.0.20fc71bb78b20f02356334a3b630e5e9832ad1c1.001.1",
+      "event": "Special Weather Statement",
+      "headline": "Special Weather Statement issued March 1 at 11:24AM CST by NWS Norman OK",
+      "severity": "Moderate",
+      "areaDesc": "Payne; Lincoln",
+      "onset": "2026-03-01T11:24:00-06:00",
+      "expires": "2026-03-01T12:00:00-06:00",
+      "isTornadoRelated": false
+    }
+  ]
+}

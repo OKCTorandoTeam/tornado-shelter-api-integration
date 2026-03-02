@@ -1,0 +1,19 @@
+{
+  "pulledAt": "2026-03-01T17:57:21.250Z",
+  "dataSource": "NCEI Storm Events Database",
+  "state": "Oklahoma",
+  "oklahomaTornadoStats": {
+    "description": "Oklahoma averages 52 tornadoes per year",
+    "peakMonths": [
+      "April",
+      "May",
+      "June"
+    ],
+    "tornadoAlley": true
+  },
+  "downloadLinks": {
+    "stormEventsCSV": "https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/",
+    "spcSVRGIS": "https://www.spc.noaa.gov/gis/svrgis/",
+    "tornadoTracks": "https://www.spc.noaa.gov/wcm/#data"
+  }
+}

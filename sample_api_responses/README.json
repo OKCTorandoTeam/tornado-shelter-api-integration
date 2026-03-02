@@ -1,0 +1,56 @@
+{
+  "pulledAt": "2026-03-01T17:57:47.058Z",
+  "pulledFor": "Team Meeting Demo",
+  "locations": [
+    "Oklahoma City",
+    "Tulsa",
+    "Stillwater"
+  ],
+  "dataSources": {
+    "nwsAlerts": {
+      "status": "success",
+      "totalAlerts": 0,
+      "statewideAlerts": 2
+    },
+    "spcReports": {
+      "status": "success",
+      "date": "2026-03-01",
+      "tornado": 0,
+      "wind": 0,
+      "hail": 1
+    },
+    "femaShelters": {
+      "status": "success",
+      "totalShelters": 0
+    },
+    "predictiveWeather": {
+      "status": "success",
+      "convectiveOutlookRisk": "NONE",
+      "activeMCDs": 1,
+      "overallThreatLevel": "HIGH"
+    },
+    "openMeteoTornadoMetrics": {
+      "status": "success",
+      "threatLevel": "HIGH",
+      "maxCAPE": 0,
+      "lowestLiftedIndex": -3.2
+    }
+  },
+  "filesGenerated": [
+    "nws_alerts_okc.json",
+    "nws_alerts_tulsa.json",
+    "nws_alerts_stillwater.json",
+    "nws_alerts_oklahoma_statewide.json",
+    "spc_tornado_reports_today.json",
+    "spc_wind_reports_today.json",
+    "spc_hail_reports_today.json",
+    "fema_open_shelters_oklahoma.json",
+    "historical_tornado_data_oklahoma.json",
+    "spc_convective_outlook.json",
+    "spc_mesoscale_discussions.json",
+    "nws_forecast_grid_data.json",
+    "open_meteo_tornado_metrics.json",
+    "predictive_weather_summary.json",
+    "data_pull_summary.json"
+  ]
+}

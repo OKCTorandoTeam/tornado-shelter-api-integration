@@ -1,0 +1,1214 @@
+{
+  "pulledAt": "2026-03-01T17:57:39.701Z",
+  "source": "Open-Meteo",
+  "apiEndpoint": "https://api.open-meteo.com/v1/forecast",
+  "description": "Tornado prediction metrics including CAPE, Lifted Index, and atmospheric instability indicators",
+  "locations": {
+    "okc": {
+      "location": "Oklahoma City",
+      "coordinates": {
+        "lat": 35.4676,
+        "lon": -97.5164
+      },
+      "timezone": "America/Chicago",
+      "elevation": 371,
+      "forecastDays": 16,
+      "current": {
+        "time": "2026-03-01T11:00",
+        "cape": 0,
+        "lifted_index": 0.9,
+        "convective_inhibition": 0,
+        "temperature_f": 68.4,
+        "dewpoint_f": 53,
+        "humidity_percent": 58,
+        "wind_speed_mph": 7.6,
+        "wind_gust_mph": 17.4,
+        "wind_direction": 152,
+        "pressure_hpa": 1015.7,
+        "weather_code": 3
+      },
+      "dailyForecast": [
+        {
+          "date": "2026-03-01",
+          "cape_max": 960,
+          "cape_min": 0,
+          "cape_mean": 77.5,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 26.2,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-02",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.016,
+          "wind_gusts_max": 19.2,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-03",
+          "cape_max": 360,
+          "cape_min": 0,
+          "cape_mean": 98.3,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 46.5,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-04",
+          "cape_max": 950,
+          "cape_min": 0,
+          "cape_mean": 158.3,
+          "precipitation_sum": 0.016,
+          "wind_gusts_max": 47.9,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-05",
+          "cape_max": 1150,
+          "cape_min": 0,
+          "cape_mean": 468.8,
+          "precipitation_sum": 0.161,
+          "wind_gusts_max": 44.3,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-06",
+          "cape_max": 1500,
+          "cape_min": 150,
+          "cape_mean": 754.2,
+          "precipitation_sum": 0.228,
+          "wind_gusts_max": 39.6,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-07",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.02,
+          "wind_gusts_max": 30.2,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-08",
+          "cape_max": 340,
+          "cape_min": 0,
+          "cape_mean": 71.2,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 40,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-09",
+          "cape_max": 340,
+          "cape_min": 0,
+          "cape_mean": 45.4,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 41.2,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-10",
+          "cape_max": 1210,
+          "cape_min": 0,
+          "cape_mean": 453.3,
+          "precipitation_sum": 0.071,
+          "wind_gusts_max": 44.7,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-11",
+          "cape_max": 140,
+          "cape_min": 0,
+          "cape_mean": 36.2,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 45.6,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-12",
+          "cape_max": 90,
+          "cape_min": 0,
+          "cape_mean": 16.7,
+          "precipitation_sum": 0.024,
+          "wind_gusts_max": 35.3,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-13",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.079,
+          "wind_gusts_max": 34.2,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-14",
+          "cape_max": 90,
+          "cape_min": 0,
+          "cape_mean": 20,
+          "precipitation_sum": 0.004,
+          "wind_gusts_max": 36,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-15",
+          "cape_max": 910,
+          "cape_min": 0,
+          "cape_mean": 297.1,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 40.3,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-16",
+          "cape_max": 650,
+          "cape_min": 0,
+          "cape_mean": 200,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 42.7,
+          "tornadoRisk": "LOW"
+        }
+      ],
+      "next24Hours": {
+        "time": [
+          "2026-03-01T11:00",
+          "2026-03-01T12:00",
+          "2026-03-01T13:00",
+          "2026-03-01T14:00",
+          "2026-03-01T15:00",
+          "2026-03-01T16:00",
+          "2026-03-01T17:00",
+          "2026-03-01T18:00",
+          "2026-03-01T19:00",
+          "2026-03-01T20:00",
+          "2026-03-01T21:00",
+          "2026-03-01T22:00",
+          "2026-03-01T23:00",
+          "2026-03-02T00:00",
+          "2026-03-02T01:00",
+          "2026-03-02T02:00",
+          "2026-03-02T03:00",
+          "2026-03-02T04:00",
+          "2026-03-02T05:00",
+          "2026-03-02T06:00",
+          "2026-03-02T07:00",
+          "2026-03-02T08:00",
+          "2026-03-02T09:00",
+          "2026-03-02T10:00"
+        ],
+        "cape": [
+          0,
+          0,
+          70,
+          190,
+          640,
+          960,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "lifted_index": [
+          0.9,
+          0.1,
+          -1.1,
+          -2.1,
+          -3.2,
+          -3.1,
+          5.5,
+          11,
+          15.3,
+          17.1,
+          18,
+          18.1,
+          18.3,
+          17.8,
+          18.2,
+          19,
+          19.7,
+          19.4,
+          20.3,
+          19.8,
+          19.5,
+          19.4,
+          19.1,
+          18.4
+        ],
+        "convective_inhibition": [
+          0,
+          0,
+          -130,
+          -40,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "dewpoint_f": [
+          53,
+          54.6,
+          56.3,
+          56.7,
+          58,
+          57.5,
+          46.4,
+          39.2,
+          33,
+          31.2,
+          29.6,
+          31.8,
+          34.3,
+          36.6,
+          37.2,
+          37.1,
+          37.3,
+          37.8,
+          37.5,
+          38,
+          38.6,
+          39,
+          39.1,
+          39.7
+        ],
+        "wind_gust_mph": [
+          17.4,
+          17.2,
+          14.3,
+          12.5,
+          15.4,
+          15.7,
+          21.7,
+          22.4,
+          26.2,
+          25.1,
+          23,
+          20.6,
+          19.9,
+          17.9,
+          18.1,
+          18.6,
+          18.8,
+          19,
+          19.2,
+          18.1,
+          18.8,
+          19,
+          15,
+          12.8
+        ]
+      },
+      "peakValues": {
+        "maxCAPE_24hr": 960,
+        "maxCAPE_7day": 1500,
+        "maxCAPE_16day": 1500,
+        "minLiftedIndex": -3.2,
+        "maxWindGust_16day": 47.9,
+        "maxDewpoint": 58
+      },
+      "highRiskDays": [
+        {
+          "date": "2026-03-05",
+          "cape_max": 1150,
+          "risk": "MODERATE"
+        },
+        {
+          "date": "2026-03-06",
+          "cape_max": 1500,
+          "risk": "MODERATE"
+        },
+        {
+          "date": "2026-03-10",
+          "cape_max": 1210,
+          "risk": "MODERATE"
+        }
+      ],
+      "tornadoThreatAssessment": {
+        "level": "HIGH",
+        "score": 65,
+        "factors": [
+          "MODERATE CAPE: 1500 J/kg (7-day max)",
+          "UNSTABLE: LI -3.2°C",
+          "MODERATE GUSTS: 47.9 mph (16-day max)",
+          "WEAK CAP: CIN 0 J/kg (storms develop easily)",
+          "MULTIPLE HIGH-RISK DAYS: 3 days with CAPE >= 1000"
+        ],
+        "recommendation": "Elevated tornado risk - Have shelter plan ready"
+      }
+    },
+    "tulsa": {
+      "location": "Tulsa",
+      "coordinates": {
+        "lat": 36.154,
+        "lon": -95.9928
+      },
+      "timezone": "America/Chicago",
+      "elevation": 226,
+      "forecastDays": 16,
+      "current": {
+        "time": "2026-03-01T11:00",
+        "cape": 0,
+        "lifted_index": 10.1,
+        "convective_inhibition": 0,
+        "temperature_f": 60.3,
+        "dewpoint_f": 40.6,
+        "humidity_percent": 48,
+        "wind_speed_mph": 6.6,
+        "wind_gust_mph": 9.8,
+        "wind_direction": 57,
+        "pressure_hpa": 1017.8,
+        "weather_code": 3
+      },
+      "dailyForecast": [
+        {
+          "date": "2026-03-01",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.13,
+          "wind_gusts_max": 25.3,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-02",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.039,
+          "wind_gusts_max": 20.1,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-03",
+          "cape_max": 340,
+          "cape_min": 0,
+          "cape_mean": 91.2,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 39.6,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-04",
+          "cape_max": 1050,
+          "cape_min": 0,
+          "cape_mean": 247.5,
+          "precipitation_sum": 0.299,
+          "wind_gusts_max": 40,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-05",
+          "cape_max": 840,
+          "cape_min": 0,
+          "cape_mean": 356.2,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 39.1,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-06",
+          "cape_max": 1110,
+          "cape_min": 110,
+          "cape_mean": 577.5,
+          "precipitation_sum": 0.457,
+          "wind_gusts_max": 36.7,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-07",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.031,
+          "wind_gusts_max": 34.2,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-08",
+          "cape_max": 230,
+          "cape_min": 0,
+          "cape_mean": 85,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 27.7,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-09",
+          "cape_max": 140,
+          "cape_min": 0,
+          "cape_mean": 35,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 28.6,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-10",
+          "cape_max": 1040,
+          "cape_min": 0,
+          "cape_mean": 641.2,
+          "precipitation_sum": 0.13,
+          "wind_gusts_max": 42.1,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-11",
+          "cape_max": 360,
+          "cape_min": 0,
+          "cape_mean": 122.1,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 40.9,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-12",
+          "cape_max": 100,
+          "cape_min": 0,
+          "cape_mean": 14.6,
+          "precipitation_sum": 0.083,
+          "wind_gusts_max": 33.3,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-13",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.134,
+          "wind_gusts_max": 30.2,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-14",
+          "cape_max": 10,
+          "cape_min": 0,
+          "cape_mean": 1.2,
+          "precipitation_sum": 0.031,
+          "wind_gusts_max": 30,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-15",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 40.7,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-16",
+          "cape_max": 630,
+          "cape_min": 0,
+          "cape_mean": 172.5,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 41.6,
+          "tornadoRisk": "LOW"
+        }
+      ],
+      "next24Hours": {
+        "time": [
+          "2026-03-01T11:00",
+          "2026-03-01T12:00",
+          "2026-03-01T13:00",
+          "2026-03-01T14:00",
+          "2026-03-01T15:00",
+          "2026-03-01T16:00",
+          "2026-03-01T17:00",
+          "2026-03-01T18:00",
+          "2026-03-01T19:00",
+          "2026-03-01T20:00",
+          "2026-03-01T21:00",
+          "2026-03-01T22:00",
+          "2026-03-01T23:00",
+          "2026-03-02T00:00",
+          "2026-03-02T01:00",
+          "2026-03-02T02:00",
+          "2026-03-02T03:00",
+          "2026-03-02T04:00",
+          "2026-03-02T05:00",
+          "2026-03-02T06:00",
+          "2026-03-02T07:00",
+          "2026-03-02T08:00",
+          "2026-03-02T09:00",
+          "2026-03-02T10:00"
+        ],
+        "cape": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "lifted_index": [
+          10.1,
+          8.4,
+          7.3,
+          7.5,
+          8,
+          6.7,
+          7.3,
+          12.1,
+          13.9,
+          13.8,
+          14.3,
+          14.9,
+          15.5,
+          15.8,
+          15.1,
+          15.6,
+          16,
+          16.3,
+          14.4,
+          14.7,
+          15.6,
+          16.1,
+          16,
+          15.3
+        ],
+        "convective_inhibition": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "dewpoint_f": [
+          40.6,
+          40.9,
+          42.9,
+          42,
+          40.5,
+          42.5,
+          41.6,
+          38,
+          39.2,
+          40.3,
+          43.8,
+          44.2,
+          44.2,
+          44.8,
+          44.5,
+          44.4,
+          43.7,
+          43.6,
+          45.7,
+          45.6,
+          44.8,
+          44.7,
+          44.7,
+          45.2
+        ],
+        "wind_gust_mph": [
+          9.8,
+          15,
+          10.5,
+          8.7,
+          9.8,
+          12.8,
+          13.9,
+          20.4,
+          24.8,
+          24.2,
+          25.3,
+          23.9,
+          20.8,
+          19.2,
+          19.2,
+          20.1,
+          19.9,
+          20.1,
+          18.8,
+          16.6,
+          16.8,
+          16.8,
+          17.2,
+          15.7
+        ]
+      },
+      "peakValues": {
+        "maxCAPE_24hr": 0,
+        "maxCAPE_7day": 1110,
+        "maxCAPE_16day": 1110,
+        "minLiftedIndex": 6.7,
+        "maxWindGust_16day": 42.1,
+        "maxDewpoint": 45.7
+      },
+      "highRiskDays": [
+        {
+          "date": "2026-03-04",
+          "cape_max": 1050,
+          "risk": "MODERATE"
+        },
+        {
+          "date": "2026-03-06",
+          "cape_max": 1110,
+          "risk": "MODERATE"
+        },
+        {
+          "date": "2026-03-10",
+          "cape_max": 1040,
+          "risk": "MODERATE"
+        }
+      ],
+      "tornadoThreatAssessment": {
+        "level": "HIGH",
+        "score": 50,
+        "factors": [
+          "MODERATE CAPE: 1110 J/kg (7-day max)",
+          "MODERATE GUSTS: 42.1 mph (16-day max)",
+          "WEAK CAP: CIN 0 J/kg (storms develop easily)",
+          "MULTIPLE HIGH-RISK DAYS: 3 days with CAPE >= 1000"
+        ],
+        "recommendation": "Elevated tornado risk - Have shelter plan ready"
+      }
+    },
+    "stillwater": {
+      "location": "Stillwater",
+      "coordinates": {
+        "lat": 36.1156,
+        "lon": -97.0584
+      },
+      "timezone": "America/Chicago",
+      "elevation": 278,
+      "forecastDays": 16,
+      "current": {
+        "time": "2026-03-01T11:00",
+        "cape": 0,
+        "lifted_index": 10.9,
+        "convective_inhibition": 0,
+        "temperature_f": 59.7,
+        "dewpoint_f": 37.8,
+        "humidity_percent": 44,
+        "wind_speed_mph": 7.2,
+        "wind_gust_mph": 9.6,
+        "wind_direction": 85,
+        "pressure_hpa": 1017.3,
+        "weather_code": 3
+      },
+      "dailyForecast": [
+        {
+          "date": "2026-03-01",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 25.7,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-02",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 19,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-03",
+          "cape_max": 490,
+          "cape_min": 0,
+          "cape_mean": 122.5,
+          "precipitation_sum": 0.02,
+          "wind_gusts_max": 43.8,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-04",
+          "cape_max": 830,
+          "cape_min": 0,
+          "cape_mean": 152.5,
+          "precipitation_sum": 0.091,
+          "wind_gusts_max": 38.7,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-05",
+          "cape_max": 1040,
+          "cape_min": 0,
+          "cape_mean": 452.1,
+          "precipitation_sum": 0.22,
+          "wind_gusts_max": 46.1,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-06",
+          "cape_max": 1510,
+          "cape_min": 250,
+          "cape_mean": 802.5,
+          "precipitation_sum": 0.866,
+          "wind_gusts_max": 37.4,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-07",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.02,
+          "wind_gusts_max": 33.3,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-08",
+          "cape_max": 230,
+          "cape_min": 0,
+          "cape_mean": 67.5,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 36,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-09",
+          "cape_max": 210,
+          "cape_min": 0,
+          "cape_mean": 20.8,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 27.5,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-10",
+          "cape_max": 1130,
+          "cape_min": 0,
+          "cape_mean": 535,
+          "precipitation_sum": 0.248,
+          "wind_gusts_max": 44.7,
+          "tornadoRisk": "MODERATE"
+        },
+        {
+          "date": "2026-03-11",
+          "cape_max": 320,
+          "cape_min": 0,
+          "cape_mean": 74.2,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 46.1,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-12",
+          "cape_max": 190,
+          "cape_min": 0,
+          "cape_mean": 22.9,
+          "precipitation_sum": 0.114,
+          "wind_gusts_max": 34.2,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-13",
+          "cape_max": 0,
+          "cape_min": 0,
+          "cape_mean": 0,
+          "precipitation_sum": 0.059,
+          "wind_gusts_max": 31.1,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-14",
+          "cape_max": 10,
+          "cape_min": 0,
+          "cape_mean": 1.2,
+          "precipitation_sum": 0.016,
+          "wind_gusts_max": 30.6,
+          "tornadoRisk": "MINIMAL"
+        },
+        {
+          "date": "2026-03-15",
+          "cape_max": 590,
+          "cape_min": 0,
+          "cape_mean": 126.2,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 42.1,
+          "tornadoRisk": "LOW"
+        },
+        {
+          "date": "2026-03-16",
+          "cape_max": 710,
+          "cape_min": 0,
+          "cape_mean": 223.3,
+          "precipitation_sum": 0,
+          "wind_gusts_max": 41.2,
+          "tornadoRisk": "LOW"
+        }
+      ],
+      "next24Hours": {
+        "time": [
+          "2026-03-01T11:00",
+          "2026-03-01T12:00",
+          "2026-03-01T13:00",
+          "2026-03-01T14:00",
+          "2026-03-01T15:00",
+          "2026-03-01T16:00",
+          "2026-03-01T17:00",
+          "2026-03-01T18:00",
+          "2026-03-01T19:00",
+          "2026-03-01T20:00",
+          "2026-03-01T21:00",
+          "2026-03-01T22:00",
+          "2026-03-01T23:00",
+          "2026-03-02T00:00",
+          "2026-03-02T01:00",
+          "2026-03-02T02:00",
+          "2026-03-02T03:00",
+          "2026-03-02T04:00",
+          "2026-03-02T05:00",
+          "2026-03-02T06:00",
+          "2026-03-02T07:00",
+          "2026-03-02T08:00",
+          "2026-03-02T09:00",
+          "2026-03-02T10:00"
+        ],
+        "cape": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "lifted_index": [
+          10.9,
+          9.8,
+          10.2,
+          9.4,
+          9,
+          9.4,
+          12.3,
+          14.9,
+          16.7,
+          16.7,
+          17.3,
+          17.9,
+          17.9,
+          17.9,
+          18.6,
+          19.1,
+          19.1,
+          19.3,
+          19.4,
+          19.5,
+          19.5,
+          19.4,
+          18.6,
+          18
+        ],
+        "convective_inhibition": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "dewpoint_f": [
+          37.8,
+          39.3,
+          38.5,
+          38.8,
+          40.1,
+          39,
+          35.2,
+          34.2,
+          35.6,
+          36.8,
+          37.6,
+          38.2,
+          38.6,
+          39.2,
+          39.3,
+          39.3,
+          38.7,
+          38.5,
+          38.3,
+          38.5,
+          38.6,
+          39.3,
+          39.5,
+          40.3
+        ],
+        "wind_gust_mph": [
+          9.6,
+          11.6,
+          9.8,
+          13.6,
+          11.6,
+          13.4,
+          20.4,
+          25.3,
+          24.6,
+          24.2,
+          23.5,
+          21.5,
+          18.6,
+          17.2,
+          19,
+          17.4,
+          19,
+          17.9,
+          17.2,
+          16.3,
+          14.5,
+          13.4,
+          15.2,
+          14.1
+        ]
+      },
+      "peakValues": {
+        "maxCAPE_24hr": 0,
+        "maxCAPE_7day": 1510,
+        "maxCAPE_16day": 1510,
+        "minLiftedIndex": 9,
+        "maxWindGust_16day": 46.1,
+        "maxDewpoint": 40.3
+      },
+      "highRiskDays": [
+        {
+          "date": "2026-03-05",
+          "cape_max": 1040,
+          "risk": "MODERATE"
+        },
+        {
+          "date": "2026-03-06",
+          "cape_max": 1510,
+          "risk": "MODERATE"
+        },
+        {
+          "date": "2026-03-10",
+          "cape_max": 1130,
+          "risk": "MODERATE"
+        }
+      ],
+      "tornadoThreatAssessment": {
+        "level": "HIGH",
+        "score": 50,
+        "factors": [
+          "MODERATE CAPE: 1510 J/kg (7-day max)",
+          "MODERATE GUSTS: 46.1 mph (16-day max)",
+          "WEAK CAP: CIN 0 J/kg (storms develop easily)",
+          "MULTIPLE HIGH-RISK DAYS: 3 days with CAPE >= 1000"
+        ],
+        "recommendation": "Elevated tornado risk - Have shelter plan ready"
+      }
+    }
+  },
+  "parameterInfo": {
+    "cape": {
+      "name": "Convective Available Potential Energy",
+      "unit": "J/kg",
+      "thresholds": {
+        "minimal": "< 300 J/kg",
+        "low": "300-1000 J/kg",
+        "moderate": "1000-2500 J/kg",
+        "high": "2500-4000 J/kg",
+        "extreme": "> 4000 J/kg"
+      },
+      "description": "Primary tornado indicator - measures atmospheric energy available for storm development"
+    },
+    "lifted_index": {
+      "name": "Lifted Index",
+      "unit": "°C",
+      "thresholds": {
+        "stable": "> 0°C",
+        "marginal": "0 to -2°C",
+        "unstable": "-2 to -6°C",
+        "veryUnstable": "< -6°C (severe weather likely)"
+      },
+      "description": "Negative values indicate unstable atmosphere favorable for thunderstorms"
+    },
+    "convective_inhibition": {
+      "name": "Convective Inhibition (CIN)",
+      "unit": "J/kg",
+      "thresholds": {
+        "weak": "< 50 J/kg (storms develop easily)",
+        "moderate": "50-200 J/kg",
+        "strong": "> 200 J/kg (cap prevents storms)"
+      },
+      "description": "Energy barrier that must be overcome for storms to develop"
+    },
+    "dewpoint": {
+      "name": "Dewpoint Temperature",
+      "unit": "°C",
+      "thresholds": {
+        "dry": "< 10°C",
+        "marginal": "10-15°C",
+        "favorable": "15-20°C",
+        "optimal": "> 20°C (high moisture for severe storms)"
+      },
+      "description": "Moisture indicator - higher dewpoints fuel stronger storms"
+    }
+  },
+  "oklahomaAssessment": {
+    "overallThreatLevel": "HIGH",
+    "highestScore": 65,
+    "forecastPeriod": "16 days",
+    "capeAnalysis": {
+      "highest_24hr": 1510,
+      "highest_7day": 1510,
+      "highest_16day": 1510
+    },
+    "lowestLiftedIndex": -3.2,
+    "highRiskDays": [
+      {
+        "date": "2026-03-04",
+        "cape_max": 1050,
+        "risk": "MODERATE"
+      },
+      {
+        "date": "2026-03-05",
+        "cape_max": 1150,
+        "risk": "MODERATE"
+      },
+      {
+        "date": "2026-03-06",
+        "cape_max": 1500,
+        "risk": "MODERATE"
+      },
+      {
+        "date": "2026-03-10",
+        "cape_max": 1210,
+        "risk": "MODERATE"
+      }
+    ],
+    "totalHighRiskDayCount": 4,
+    "locationBreakdown": [
+      {
+        "location": "Oklahoma City",
+        "level": "HIGH",
+        "score": 65,
+        "maxCAPE_24hr": 960,
+        "maxCAPE_7day": 1500,
+        "maxCAPE_16day": 1500,
+        "minLI": -3.2,
+        "highRiskDays": 3
+      },
+      {
+        "location": "Tulsa",
+        "level": "HIGH",
+        "score": 50,
+        "maxCAPE_24hr": 0,
+        "maxCAPE_7day": 1110,
+        "maxCAPE_16day": 1110,
+        "minLI": 6.7,
+        "highRiskDays": 3
+      },
+      {
+        "location": "Stillwater",
+        "level": "HIGH",
+        "score": 50,
+        "maxCAPE_24hr": 0,
+        "maxCAPE_7day": 1510,
+        "maxCAPE_16day": 1510,
+        "minLI": 9,
+        "highRiskDays": 3
+      }
+    ],
+    "timestamp": "2026-03-01T17:57:46.038Z"
+  }
+}

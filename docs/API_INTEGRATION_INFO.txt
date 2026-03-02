@@ -8,7 +8,7 @@
 # SECURITY NOTE: Do NOT commit actual API keys to this file.
 # Use environment variables or a separate .env file (gitignored).
 #
-# Last Updated: February 2026
+# Last Updated: March 2026
 # ============================================================
 
 
@@ -38,6 +38,15 @@ Documentation: https://openweathermap.org/api
 ## Rate Limits (Free Tier):
 - Current Weather: 60 calls/minute, 1,000,000 calls/month
 - One Call API 3.0: 1,000 calls/day
+
+## Metrics Available:
+- Temperature, Dewpoint, Humidity
+- Wind Speed, Wind Gusts, Wind Direction
+- Pressure, Precipitation
+- Active Weather Alerts (via One Call)
+
+## Metrics NOT Available:
+- CAPE, Lifted Index, CIN (use Open-Meteo for these)
 
 ## Example Request:
 GET https://api.openweathermap.org/data/2.5/weather?lat=35.4676&lon=-97.5164&appid=YOUR_KEY&units=metric
@@ -69,6 +78,17 @@ API Specification: https://api.weather.gov/openapi.json
 - Reasonable use expected
 - Implement caching (recommended: 2 minutes for alerts)
 
+## Metrics Available:
+- Temperature, Dewpoint, Humidity
+- Wind Speed, Wind Gusts, Wind Direction
+- Pressure, Precipitation
+- Thunder Probability
+- Official Tornado Warnings (PRIMARY ALERT SOURCE)
+- Risk Zone Polygons
+
+## Metrics NOT Available:
+- CAPE, Lifted Index, CIN (use Open-Meteo for these)
+
 ## Example Request:
 GET https://api.weather.gov/alerts/active?point=35.4676,-97.5164
 Headers: 
@@ -83,7 +103,192 @@ Headers:
 
 
 # ============================================================
-# 3. STORM PREDICTION CENTER (SPC) - NOAA
+# 3. OPEN-METEO API (NEW - Tornado Prediction Metrics)
+# ============================================================
+
+API Provider: Open-Meteo
+Website: https://open-meteo.com/
+Documentation: https://open-meteo.com/en/docs
+
+## WHY THIS API:
+Open-Meteo is the ONLY free source for CAPE, Lifted Index, and CIN -
+the critical atmospheric instability metrics needed for tornado prediction.
+It also provides all standard weather metrics (temperature, wind, etc.)
+
+## Endpoint:
+https://api.open-meteo.com/v1/forecast
+
+## Authentication:
+- None Required
+- Completely FREE
+- No API Key Needed
+
+## Rate Limits:
+- 10,000 requests/day (non-commercial)
+- No signup required
+
+## Forecast Range:
+- Hourly data: Up to 16 days
+- Daily aggregates: Up to 16 days
+- Best accuracy: Days 1-7
+
+## Tornado Prediction Parameters:
+| Parameter               | Unit    | Description                                    |
+|-------------------------|---------|------------------------------------------------|
+| cape                    | J/kg    | Convective Available Potential Energy (PRIMARY)|
+| lifted_index            | °C      | Atmospheric instability (negative = unstable)  |
+| convective_inhibition   | J/kg    | Cap strength (lower = storms develop easier)   |
+
+## Standard Weather Parameters:
+| Parameter               | Unit    | Description                                    |
+|-------------------------|---------|------------------------------------------------|
+| temperature_2m          | °F/°C   | Air temperature at 2 meters                    |
+| dewpoint_2m             | °F/°C   | Dewpoint temperature (moisture indicator)      |
+| relative_humidity_2m    | %       | Relative humidity                              |
+| wind_speed_10m          | mph     | Wind speed at 10 meters                        |
+| wind_gusts_10m          | mph     | Wind gust speed                                |
+| wind_direction_10m      | degrees | Wind direction (0-360°)                        |
+| pressure_msl            | hPa     | Sea level pressure                             |
+| precipitation           | inches  | Total precipitation                            |
+| weather_code            | WMO     | Weather condition code                         |
+
+## Daily Aggregate Parameters:
+- cape_max, cape_min, cape_mean
+- temperature_2m_max, temperature_2m_min
+- wind_gusts_10m_max
+- precipitation_sum
+
+## CAPE Threshold Reference:
+| CAPE Value    | Risk Level | Interpretation                          |
+|---------------|------------|-----------------------------------------|
+| < 300 J/kg    | MINIMAL    | Stable atmosphere, no tornado threat    |
+| 300-1000 J/kg | LOW        | Weak instability, marginal potential    |
+| 1000-2500 J/kg| MODERATE   | Strong storms possible                  |
+| 2500-4000 J/kg| HIGH       | Severe storms likely, tornado potential |
+| > 4000 J/kg   | EXTREME    | Violent storms, significant tornado risk|
+
+## Lifted Index Reference:
+| LI Value   | Stability      | Interpretation                |
+|------------|----------------|-------------------------------|
+| > 0°C      | Stable         | Thunderstorms unlikely        |
+| 0 to -2°C  | Marginal       | Weak storms possible          |
+| -2 to -6°C | Unstable       | Thunderstorms likely          |
+| < -6°C     | Very Unstable  | Severe storms expected        |
+
+## Example Request (16-day tornado metrics):
+GET https://api.open-meteo.com/v1/forecast?latitude=35.4676&longitude=-97.5164&hourly=cape,lifted_index,convective_inhibition,temperature_2m,dewpoint_2m,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,wind_direction_10m,pressure_msl,precipitation,weather_code&daily=cape_max,cape_min,cape_mean,precipitation_sum,wind_gusts_10m_max&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&timezone=America/Chicago&forecast_days=16
+
+## App Integration:
+- Update Frequency: Hourly
+- Alert Threshold: Push notification when CAPE >= 2500 J/kg
+- In-App Alert: When CAPE >= 1000 J/kg
+- Status Update: When CAPE >= 300 J/kg
+
+
+# ============================================================
+# 4. SPC CONVECTIVE OUTLOOKS (NEW - Tornado Probability)
+# ============================================================
+
+API Provider: NOAA Storm Prediction Center
+Website: https://www.spc.noaa.gov/
+GIS Services: https://mapservices.weather.noaa.gov/
+
+## WHY THIS API:
+Provides official NOAA tornado probability percentages (2%, 5%, 10%, etc.)
+as geographic polygons. Essential for determining if user is in a risk zone.
+
+## Endpoint:
+https://mapservices.weather.noaa.gov/vector/rest/services/outlooks/SPC_wx_outlks/MapServer
+
+## Layers:
+| Layer ID | Description                        |
+|----------|------------------------------------|
+| 1        | Day 1 Categorical Outlook          |
+| 7        | Day 1 Tornado Probability          |
+| 8        | Day 1 Significant Tornado (EF2+)   |
+| 10       | Day 2 Tornado Probability          |
+| 17       | Day 3 Categorical Outlook          |
+
+## Authentication:
+- None Required
+- Public Access
+
+## SPC Risk Level Codes:
+| Code | Name              | Tornado Probability | App Action          |
+|------|-------------------|---------------------|---------------------|
+| TSTM | General Thunder   | <2%                 | Status update only  |
+| MRGL | Marginal          | 2%                  | Low alert           |
+| SLGT | Slight            | 5%                  | Moderate alert      |
+| ENH  | Enhanced          | 10%                 | High alert          |
+| MDT  | Moderate          | 15%                 | Push notification   |
+| HIGH | High              | 30%+                | Emergency push      |
+
+## Example Request (Day 1 Tornado):
+GET https://mapservices.weather.noaa.gov/vector/rest/services/outlooks/SPC_wx_outlks/MapServer/7/query?where=1%3D1&outFields=*&f=json
+
+## Response Format: 
+- JSON with GeoJSON-style geometry
+- Polygon rings for risk zone boundaries
+
+## App Integration:
+- Update Frequency: Every 6 hours (or when SPC issues new outlook)
+- Use Case: Check if user location falls within risk polygons
+- Display: Show risk level banner on home screen
+
+
+# ============================================================
+# 5. SPC MESOSCALE DISCUSSIONS (NEW - Early Warning)
+# ============================================================
+
+API Provider: NOAA Storm Prediction Center
+Website: https://www.spc.noaa.gov/products/md/
+
+## WHY THIS API:
+MCDs are your BEST early warning tool - issued 1-3 HOURS BEFORE 
+tornado watches. Gives users critical advance notice to prepare.
+
+## Endpoints:
+- Current MCDs: https://www.spc.noaa.gov/products/md/
+- MCD GeoJSON: https://www.spc.noaa.gov/products/md/md.geojson
+- Individual MCD: https://www.spc.noaa.gov/products/md/md{NUMBER}.html
+
+## Authentication:
+- None Required
+- Public Access
+
+## Key Fields:
+| Field              | Description                               |
+|--------------------|-------------------------------------------|
+| watch_probability  | Probability of watch issuance (0-100%)    |
+| affected_areas     | Geographic areas affected                 |
+| valid_start/end    | Time window for the discussion            |
+| concerning         | Type of severe weather expected           |
+
+## Watch Probability Thresholds:
+| Probability | App Action                                    |
+|-------------|-----------------------------------------------|
+| >= 95%      | EMERGENCY PUSH - "Tornado Watch imminent"     |
+| >= 80%      | PUSH NOTIFICATION - "Watch likely in 1-2 hrs" |
+| >= 50%      | IN-APP ALERT - "Severe weather watch possible"|
+| < 50%       | MONITOR - Update app status                   |
+
+## Example Response Fields:
+{
+  "number": "0124",
+  "watch_probability": 80,
+  "affected_areas": "Central Oklahoma",
+  "valid_start": "2026-03-01T18:00:00Z",
+  "valid_end": "2026-03-01T21:00:00Z",
+  "concerning": "Severe potential...Watch likely"
+}
+
+## App Integration:
+- Update Frequency: Every 5 minutes during active weather
+- HIGHEST PRIORITY for push notifications after NWS Warnings
+
+
+# ============================================================
+# 6. STORM PREDICTION CENTER (SPC) - STORM REPORTS
 # ============================================================
 
 API Provider: NOAA Storm Prediction Center
@@ -113,7 +318,7 @@ GIS Data: https://www.spc.noaa.gov/gis/svrgis/
 
 
 # ============================================================
-# 4. FEMA NATIONAL SHELTER SYSTEM
+# 7. FEMA NATIONAL SHELTER SYSTEM
 # ============================================================
 
 API Provider: FEMA (via ArcGIS REST Services)
@@ -154,7 +359,7 @@ GET https://gis.fema.gov/arcgis/rest/services/NSS/OpenShelters/MapServer/0/query
 
 
 # ============================================================
-# 5. NCEI STORM EVENTS DATABASE (Historical Data)
+# 8. NCEI STORM EVENTS DATABASE (Historical Data)
 # ============================================================
 
 Provider: NOAA National Centers for Environmental Information
@@ -180,7 +385,79 @@ https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/Storm-Data-Bulk-csv
 
 
 # ============================================================
-# 6. SUPABASE CONFIGURATION (If Using Backend Option)
+# 9. API METRICS COMPARISON TABLE
+# ============================================================
+
+## Which API Has Which Metrics?
+
+| Metric                  | OpenWeather | NWS API | Open-Meteo | SPC Outlook | SPC MCD |
+|-------------------------|:-----------:|:-------:|:----------:|:-----------:|:-------:|
+| BASIC WEATHER           |             |         |            |             |         |
+| Temperature             |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| Dewpoint                |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| Humidity                |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| Pressure                |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| Precipitation           |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| WIND                    |             |         |            |             |         |
+| Wind Speed              |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| Wind Gusts              |     ✓       |    ✓    |     ✓      |      ✗      |    ✓    |
+| Wind Direction          |     ✓       |    ✓    |     ✓      |      ✗      |    ✗    |
+| TORNADO PREDICTION      |             |         |            |             |         |
+| CAPE                    |     ✗       |    ✗    |     ✓      |      ✗      |    ✗    |
+| Lifted Index            |     ✗       |    ✗    |     ✓      |      ✗      |    ✗    |
+| Convective Inhibition   |     ✗       |    ✗    |     ✓      |      ✗      |    ✗    |
+| ALERTS & PROBABILITY    |             |         |            |             |         |
+| Tornado Warnings        |     ✓       |    ✓    |     ✗      |      ✗      |    ✗    |
+| Tornado Probability %   |     ✗       |    ✗    |     ✗      |      ✓      |    ✗    |
+| Watch Probability %     |     ✗       |    ✗    |     ✗      |      ✗      |    ✓    |
+| Risk Zone Polygons      |     ✗       |    ✓    |     ✗      |      ✓      |    ✓    |
+| FORECAST RANGE          |             |         |            |             |         |
+| Forecast Days           |     5       |    7    |     16     |     1-8     |   1-3hr |
+| Update Frequency        |    10min    |   1hr   |    1hr     |    ~6hr     | As issued|
+| Cost                    |  Freemium   |  FREE   |    FREE    |    FREE     |  FREE   |
+
+## Key Insight:
+Open-Meteo is the ONLY source for CAPE, Lifted Index, and CIN.
+These are critical for tornado prediction and NOT available from OpenWeather or NWS.
+
+
+# ============================================================
+# 10. ALERT PRIORITY ORDER (For App Implementation)
+# ============================================================
+
+## Priority 1: NWS Tornado Warnings (IMMEDIATE)
+- Source: NWS Alerts API
+- Action: Emergency push notification
+- Polling: Every 1-2 minutes during active weather
+- Message: "TORNADO WARNING - Seek shelter immediately!"
+
+## Priority 2: SPC Mesoscale Discussions (1-3 HOURS AHEAD)
+- Source: SPC MCD API
+- Action: Push notification when watch_probability >= 80%
+- Polling: Every 5 minutes during active weather
+- Message: "Tornado Watch likely within 1-2 hours"
+
+## Priority 3: Open-Meteo CAPE/Lifted Index (DAILY)
+- Source: Open-Meteo API
+- Action: In-app alert when CAPE >= 1000 J/kg
+- Polling: Every hour
+- Message: "Elevated tornado potential today - stay weather aware"
+
+## Priority 4: SPC Convective Outlook (DAILY)
+- Source: SPC Outlook MapServer
+- Action: Home screen risk banner
+- Polling: Every 6 hours
+- Message: Display risk level (MRGL/SLGT/ENH/MDT/HIGH)
+
+## Priority 5: Open-Meteo Extended Forecast (PLANNING)
+- Source: Open-Meteo API (16-day)
+- Action: Flag high-risk days in calendar view
+- Polling: Every 6 hours
+- Message: "High-risk day coming on [DATE]"
+
+
+# ============================================================
+# 11. SUPABASE CONFIGURATION (If Using Backend Option)
 # ============================================================
 
 Provider: Supabase
@@ -190,7 +467,7 @@ Documentation: https://supabase.com/docs
 ## Project Setup:
 1. Create account at https://supabase.com/
 2. Create new project
-3. Run SQL schema (supabase_schema.sql)
+3. Run SQL schema (see migrations/ folder)
 
 ## Credentials Needed:
 - Project URL: https://[PROJECT_ID].supabase.co
@@ -202,17 +479,21 @@ SUPABASE_URL=https://[PROJECT_ID].supabase.co
 SUPABASE_ANON_KEY=[your-anon-key]
 
 ## Database Tables:
-- shelters: Oklahoma shelter locations
-- weather_alerts_history: Logged NWS alerts
-- storm_reports_history: Logged SPC reports
-- app_config: App configuration
+- shelters: Oklahoma shelter locations (66+ verified)
+- weather_forecasts: 16-day daily CAPE/LI forecasts
+- current_conditions: Hourly weather observations
+- threat_assessments: Computed tornado threat levels
+- high_risk_days: Flagged days with CAPE >= 1000
+- spc_outlooks: SPC risk zone polygons
+- mesoscale_discussions: SPC MCD tracking
+- storm_reports: Confirmed tornado/wind/hail reports
 
 ## SDK Installation:
 npm install @supabase/supabase-js
 
 
 # ============================================================
-# 7. ENVIRONMENT VARIABLES TEMPLATE
+# 12. ENVIRONMENT VARIABLES TEMPLATE
 # ============================================================
 
 # Create a .env file in your project root with these variables:
@@ -231,11 +512,16 @@ SUPABASE_ANON_KEY=your_anon_key_here
 APP_USER_AGENT=TornadoShelterApp/1.0 (team@email.com)
 DEFAULT_STATE=OK
 
+# Alert Thresholds (optional - can also be in code)
+CAPE_HIGH_THRESHOLD=2500
+CAPE_MODERATE_THRESHOLD=1000
+MCD_PUSH_THRESHOLD=80
+
 # --- End of .env template ---
 
 
 # ============================================================
-# 8. GITIGNORE ADDITIONS
+# 13. GITIGNORE ADDITIONS
 # ============================================================
 
 # Add these to your .gitignore to prevent committing secrets:
@@ -249,44 +535,55 @@ secrets/
 
 
 # ============================================================
-# 9. CODE FILES IN THIS REPO
+# 14. CODE FILES IN THIS REPO
 # ============================================================
+
+## API Testing & Data Pull Scripts:
+- pull-weather-data.js - Pulls all weather data (7 APIs, 15 output files)
+- test-weather-apis.js - Tests all 7 APIs with color-coded output
+
+## Sample API Responses:
+- sample-api-responses/README.md - Documentation for sample files
+- sample-api-responses/open_meteo_tornado_metrics.json - CAPE/LI data
+- sample-api-responses/spc_convective_outlook.json - Risk polygons
+- sample-api-responses/spc_mesoscale_discussions.json - MCD data
+- sample-api-responses/spc_tornado_reports_today.json - Daily reports
+
+## Database Migrations:
+- migrations/003_add_weather_prediction_tables.sql - Predictive weather schema
 
 ## Direct API Approach:
 - weatherDataService.js - Unified service for NWS, SPC, FEMA APIs
 - weatherDataServiceExamples.js - Usage examples
-- test-weather-apis.js - Node.js test script
-- package.json - Node.js configuration (for testing)
 
 ## Supabase Approach:
 - supabase_schema.sql - Database schema and functions
 - supabaseWeatherService.js - Supabase-integrated service
 - supabaseWeatherServiceExamples.js - Usage examples
 
-## Data Pull Scripts:
-- pull-meeting-data.js - Pulls live data for demos
-
 ## Documentation:
 - API_INTEGRATION_INFO.txt - This file
-- tornado_app_data_resources.docx - Data sources reference
+- tornado_app_data_resources_v2.docx - Full API docs with metrics table
 - team_architecture_decision.docx - Architecture decision document
+- predictive_api_json_criteria_assessment.md - JSON publishing criteria
 
 
 # ============================================================
-# 10. QUICK START CHECKLIST
+# 15. QUICK START CHECKLIST
 # ============================================================
 
 [ ] 1. Clone the repository
 [ ] 2. Copy .env.example to .env (or create .env from template above)
 [ ] 3. Add your OpenWeather API key to .env
 [ ] 4. If using Supabase: Add Supabase credentials to .env
-[ ] 5. Run: npm install (if package.json exists)
-[ ] 6. Test APIs: node test-weather-apis.js
-[ ] 7. Pull demo data: node pull-meeting-data.js
+[ ] 5. Run: npm install
+[ ] 6. Test all APIs: node test-weather-apis.js
+[ ] 7. Pull full weather data: node pull-weather-data.js
+[ ] 8. Review sample-api-responses/ for data structure examples
 
 
 # ============================================================
-# 11. TEAM CONTACTS & RESOURCES
+# 16. TEAM CONTACTS & RESOURCES
 # ============================================================
 
 ## Team Resources:
@@ -297,6 +594,7 @@ secrets/
 ## API Support Links:
 - OpenWeather Support: https://openweathermap.org/faq
 - NWS API Issues: https://github.com/weather-gov/api/issues
+- Open-Meteo Docs: https://open-meteo.com/en/docs
 - Supabase Discord: https://discord.supabase.com/
 
 ## Oklahoma Emergency Resources:

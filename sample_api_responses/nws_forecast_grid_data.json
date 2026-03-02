@@ -1,0 +1,685 @@
+{
+  "pulledAt": "2026-03-01T17:57:34.071Z",
+  "source": "National Weather Service API",
+  "description": "Hourly forecast data with severe weather indicators",
+  "locations": {
+    "okc": {
+      "location": "Oklahoma City",
+      "coordinates": {
+        "lat": 35.4676,
+        "lon": -97.5164
+      },
+      "gridInfo": {
+        "office": "OUN",
+        "gridX": 97,
+        "gridY": 94
+      },
+      "updateTime": "2026-03-01T06:28:03+00:00",
+      "temperature": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 26.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 25
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 22.22222222222222
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 21.666666666666668
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 20.555555555555557
+        }
+      ],
+      "apparentTemperature": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 26.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 25
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 22.22222222222222
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 21.666666666666668
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 20.555555555555557
+        }
+      ],
+      "dewpoint": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 11.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 11.666666666666666
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 12.222222222222221
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 10
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 9.444444444444445
+        }
+      ],
+      "relativeHumidity": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 39
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 43
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 53
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 47
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 49
+        }
+      ],
+      "windSpeed": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 9.26
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT2H",
+          "value": 5.556
+        },
+        {
+          "validTime": "2026-03-01T05:00:00+00:00/PT1H",
+          "value": 7.408
+        },
+        {
+          "validTime": "2026-03-01T06:00:00+00:00/PT1H",
+          "value": 5.556
+        },
+        {
+          "validTime": "2026-03-01T07:00:00+00:00/PT2H",
+          "value": 12.964
+        }
+      ],
+      "windGust": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 14.816
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT2H",
+          "value": 5.556
+        },
+        {
+          "validTime": "2026-03-01T05:00:00+00:00/PT1H",
+          "value": 14.816
+        },
+        {
+          "validTime": "2026-03-01T06:00:00+00:00/PT1H",
+          "value": 11.112
+        },
+        {
+          "validTime": "2026-03-01T07:00:00+00:00/PT2H",
+          "value": 20.372
+        }
+      ],
+      "windDirection": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 190
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 140
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 110
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 310
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 10
+        }
+      ],
+      "probabilityOfPrecipitation": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 22
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT6H",
+          "value": 11
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT3H",
+          "value": 5
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT3H",
+          "value": 10
+        },
+        {
+          "validTime": "2026-03-01T15:00:00+00:00/PT3H",
+          "value": 17
+        }
+      ],
+      "probabilityOfThunder": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 22
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT3H",
+          "value": 11
+        },
+        {
+          "validTime": "2026-03-01T06:00:00+00:00/PT3H",
+          "value": 5
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT3H",
+          "value": 4
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT3H",
+          "value": 6
+        }
+      ],
+      "pressure": [],
+      "hazards": [],
+      "severeWeatherIndicators": {
+        "moistureLevel": "MARGINAL",
+        "thunderPotential": "LOW",
+        "windThreat": "MODERATE",
+        "overallTornadoPotential": "MINIMAL"
+      }
+    },
+    "tulsa": {
+      "location": "Tulsa",
+      "coordinates": {
+        "lat": 36.154,
+        "lon": -95.9928
+      },
+      "gridInfo": {
+        "office": "TSA",
+        "gridX": 41,
+        "gridY": 105
+      },
+      "updateTime": "2026-03-01T14:51:18+00:00",
+      "temperature": [
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT1H",
+          "value": 12.222222222222221
+        },
+        {
+          "validTime": "2026-03-01T10:00:00+00:00/PT1H",
+          "value": 11.666666666666666
+        },
+        {
+          "validTime": "2026-03-01T11:00:00+00:00/PT1H",
+          "value": 11.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT1H",
+          "value": 10.555555555555555
+        },
+        {
+          "validTime": "2026-03-01T13:00:00+00:00/PT1H",
+          "value": 8.333333333333334
+        }
+      ],
+      "apparentTemperature": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT1H",
+          "value": 13.333333333333334
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT1H",
+          "value": 12.222222222222221
+        },
+        {
+          "validTime": "2026-03-01T10:00:00+00:00/PT1H",
+          "value": 11.666666666666666
+        },
+        {
+          "validTime": "2026-03-01T11:00:00+00:00/PT1H",
+          "value": 11.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT1H",
+          "value": 10.555555555555555
+        }
+      ],
+      "dewpoint": [
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT2H",
+          "value": 4.444444444444445
+        },
+        {
+          "validTime": "2026-03-01T11:00:00+00:00/PT2H",
+          "value": 3.888888888888889
+        },
+        {
+          "validTime": "2026-03-01T13:00:00+00:00/PT1H",
+          "value": -0.5555555555555556
+        },
+        {
+          "validTime": "2026-03-01T14:00:00+00:00/PT1H",
+          "value": 1.1111111111111112
+        },
+        {
+          "validTime": "2026-03-01T15:00:00+00:00/PT1H",
+          "value": 2.7777777777777777
+        }
+      ],
+      "relativeHumidity": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT1H",
+          "value": 61
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT1H",
+          "value": 58
+        },
+        {
+          "validTime": "2026-03-01T10:00:00+00:00/PT1H",
+          "value": 60
+        },
+        {
+          "validTime": "2026-03-01T11:00:00+00:00/PT1H",
+          "value": 62
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT1H",
+          "value": 64
+        }
+      ],
+      "windSpeed": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT1H",
+          "value": 12.964
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT2H",
+          "value": 18.52
+        },
+        {
+          "validTime": "2026-03-01T11:00:00+00:00/PT2H",
+          "value": 16.668
+        },
+        {
+          "validTime": "2026-03-01T13:00:00+00:00/PT1H",
+          "value": 18.52
+        },
+        {
+          "validTime": "2026-03-01T14:00:00+00:00/PT2H",
+          "value": 16.668
+        }
+      ],
+      "windGust": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT1H",
+          "value": 20.372
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT4H",
+          "value": 22.224
+        },
+        {
+          "validTime": "2026-03-01T13:00:00+00:00/PT1H",
+          "value": 24.076
+        },
+        {
+          "validTime": "2026-03-01T14:00:00+00:00/PT2H",
+          "value": 25.928
+        },
+        {
+          "validTime": "2026-03-01T16:00:00+00:00/PT2H",
+          "value": 27.78
+        }
+      ],
+      "windDirection": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT3H",
+          "value": 30
+        },
+        {
+          "validTime": "2026-03-01T11:00:00+00:00/PT4H",
+          "value": 40
+        },
+        {
+          "validTime": "2026-03-01T15:00:00+00:00/PT1H",
+          "value": 50
+        },
+        {
+          "validTime": "2026-03-01T16:00:00+00:00/PT5H",
+          "value": 60
+        },
+        {
+          "validTime": "2026-03-01T21:00:00+00:00/PT1H",
+          "value": 70
+        }
+      ],
+      "probabilityOfPrecipitation": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT1H",
+          "value": 10
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT3H",
+          "value": 2
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT3H",
+          "value": 4
+        },
+        {
+          "validTime": "2026-03-01T15:00:00+00:00/PT3H",
+          "value": 17
+        },
+        {
+          "validTime": "2026-03-01T18:00:00+00:00/PT3H",
+          "value": 28
+        }
+      ],
+      "probabilityOfThunder": [
+        {
+          "validTime": "2026-03-01T08:00:00+00:00/PT1H",
+          "value": 0
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT3H",
+          "value": 1
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT3H",
+          "value": 4
+        },
+        {
+          "validTime": "2026-03-01T15:00:00+00:00/PT3H",
+          "value": 10
+        },
+        {
+          "validTime": "2026-03-01T18:00:00+00:00/PT3H",
+          "value": 19
+        }
+      ],
+      "pressure": [],
+      "hazards": [],
+      "severeWeatherIndicators": {
+        "moistureLevel": "LOW",
+        "thunderPotential": "LOW",
+        "windThreat": "SEVERE",
+        "overallTornadoPotential": "MINIMAL"
+      }
+    },
+    "stillwater": {
+      "location": "Stillwater",
+      "coordinates": {
+        "lat": 36.1156,
+        "lon": -97.0584
+      },
+      "gridInfo": {
+        "office": "OUN",
+        "gridX": 114,
+        "gridY": 122
+      },
+      "updateTime": "2026-03-01T06:28:03+00:00",
+      "temperature": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 26.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 23.333333333333332
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 20
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 18.333333333333332
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 17.77777777777778
+        }
+      ],
+      "apparentTemperature": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 26.11111111111111
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 23.333333333333332
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 20
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 18.333333333333332
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 17.77777777777778
+        }
+      ],
+      "dewpoint": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 9.444444444444445
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 8.333333333333334
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 7.222222222222222
+        },
+        {
+          "validTime": "2026-03-01T05:00:00+00:00/PT1H",
+          "value": 3.3333333333333335
+        },
+        {
+          "validTime": "2026-03-01T06:00:00+00:00/PT1H",
+          "value": 1.6666666666666667
+        }
+      ],
+      "relativeHumidity": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 35
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 42
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 51
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 52
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 50
+        }
+      ],
+      "windSpeed": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 7.408
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 5.556
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 9.26
+        },
+        {
+          "validTime": "2026-03-01T05:00:00+00:00/PT1H",
+          "value": 12.964
+        },
+        {
+          "validTime": "2026-03-01T06:00:00+00:00/PT1H",
+          "value": 16.668
+        }
+      ],
+      "windGust": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 11.112
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 18.52
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 16.668
+        },
+        {
+          "validTime": "2026-03-01T05:00:00+00:00/PT2H",
+          "value": 24.076
+        },
+        {
+          "validTime": "2026-03-01T07:00:00+00:00/PT2H",
+          "value": 20.372
+        }
+      ],
+      "windDirection": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT1H",
+          "value": 300
+        },
+        {
+          "validTime": "2026-03-01T01:00:00+00:00/PT1H",
+          "value": 10
+        },
+        {
+          "validTime": "2026-03-01T02:00:00+00:00/PT1H",
+          "value": 30
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT1H",
+          "value": 20
+        },
+        {
+          "validTime": "2026-03-01T04:00:00+00:00/PT1H",
+          "value": 340
+        }
+      ],
+      "probabilityOfPrecipitation": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 16
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT3H",
+          "value": 9
+        },
+        {
+          "validTime": "2026-03-01T06:00:00+00:00/PT3H",
+          "value": 6
+        },
+        {
+          "validTime": "2026-03-01T09:00:00+00:00/PT3H",
+          "value": 2
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT3H",
+          "value": 8
+        }
+      ],
+      "probabilityOfThunder": [
+        {
+          "validTime": "2026-03-01T00:00:00+00:00/PT3H",
+          "value": 16
+        },
+        {
+          "validTime": "2026-03-01T03:00:00+00:00/PT9H",
+          "value": 2
+        },
+        {
+          "validTime": "2026-03-01T12:00:00+00:00/PT9H",
+          "value": 5
+        },
+        {
+          "validTime": "2026-03-01T21:00:00+00:00/PT3H",
+          "value": 10
+        },
+        {
+          "validTime": "2026-03-02T00:00:00+00:00/PT3H",
+          "value": 28
+        }
+      ],
+      "pressure": [],
+      "hazards": [],
+      "severeWeatherIndicators": {
+        "moistureLevel": "LOW",
+        "thunderPotential": "LOW",
+        "windThreat": "SEVERE",
+        "overallTornadoPotential": "MINIMAL"
+      }
+    }
+  },
+  "severeWeatherThresholds": {
+    "dewpoint": {
+      "favorable": "55°F+",
+      "optimal": "65°F+",
+      "description": "Moisture for storm development"
+    },
+    "thunderProbability": {
+      "elevated": "40%+",
+      "high": "60%+",
+      "description": "Chance of thunderstorms"
+    },
+    "windGust": {
+      "notable": "30+ mph",
+      "severe": "50+ mph",
+      "description": "Surface instability indicator"
+    },
+    "windShift": {
+      "significant": "45°+ change",
+      "description": "Frontal passage indicator"
+    }
+  }
+}

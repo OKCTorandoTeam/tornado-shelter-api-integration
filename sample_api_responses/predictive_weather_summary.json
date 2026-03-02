@@ -1,0 +1,131 @@
+{
+  "pulledAt": "2026-03-01T17:57:47.054Z",
+  "description": "Combined predictive weather analysis for Oklahoma",
+  "convectiveOutlook": {
+    "source": "SPC Convective Outlook",
+    "oklahomaInRiskArea": false,
+    "riskLevel": "NONE",
+    "riskDescription": "No severe weather expected",
+    "day1TornadoZones": 1,
+    "day1SignificantTornadoZones": 0
+  },
+  "mesoscaleDiscussions": {
+    "source": "SPC Mesoscale Discussions",
+    "activeCount": 1,
+    "oklahomaAffected": false,
+    "discussions": [
+      {
+        "number": "0124",
+        "concerning": "Severe potential...Watch unlikely \n\n   Valid 011739Z - 011945Z\n\n   Probability of Watch Issuance...20 percent\n\n   SUMMARY...Scattered storms are possible primarily near and along the\n   South Florida coast this afternoon. Isolated damaging winds and\n   marginally severe hail are the expected hazards. A watch is not\n   expected.\n\n   DISCUSSION...Convection continues to increase near the South Florida\n   coast this afternoon as temperature are reaching the upper 70s to\n   low 80s F. Localized convergence along with modest mid-level ascent\n   appears to be the largest contributors to this activity. With time,\n   a more well-developed sea breeze will likely move inland and promote\n   additional development. Around 1500 J/kg MLCAPE and 30-35 kts of\n   effective shear will allow a few storms to organize and potentially\n   produce isolated damaging winds and marginally severe hail.\n   Convection over the Gulf Stream has produce outflow that is\n   approaching the eastern Peninsula coast. This could impact the\n   duration of the most intense activity, though a brief uptick in wind\n   gust potential is also possible as this boundary interacts with\n   ongoing storms.\n\n   ..Wendt/Smith.. 03/01/2026\n\n   ...Please see www.spc.noaa.gov for graphic product...\n\n   ATTN...WFO...MFL...KEY...\n\n   LAT...LON   25208029 25198059 25238072 25538078 26528043 26748020\n               26608009 25818010 25208029 \n\n   MOST PROBABLE PEAK WIND GUST...UP TO 60 MPH\n   MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN",
+        "mentionsTornado": true
+      }
+    ]
+  },
+  "forecastIndicators": {
+    "source": "NWS Forecast Grid Data",
+    "locations": [
+      {
+        "location": "Oklahoma City",
+        "indicators": {
+          "moistureLevel": "MARGINAL",
+          "thunderPotential": "LOW",
+          "windThreat": "MODERATE",
+          "overallTornadoPotential": "MINIMAL"
+        }
+      },
+      {
+        "location": "Tulsa",
+        "indicators": {
+          "moistureLevel": "LOW",
+          "thunderPotential": "LOW",
+          "windThreat": "SEVERE",
+          "overallTornadoPotential": "MINIMAL"
+        }
+      },
+      {
+        "location": "Stillwater",
+        "indicators": {
+          "moistureLevel": "LOW",
+          "thunderPotential": "LOW",
+          "windThreat": "SEVERE",
+          "overallTornadoPotential": "MINIMAL"
+        }
+      }
+    ]
+  },
+  "tornadoMetrics": {
+    "source": "Open-Meteo",
+    "overallThreatLevel": "HIGH",
+    "highestCAPE": 0,
+    "lowestLiftedIndex": -3.2,
+    "locations": [
+      {
+        "location": "Oklahoma City",
+        "threatLevel": "HIGH",
+        "score": 65,
+        "currentCAPE": 0,
+        "maxCAPE24hr": 0,
+        "factors": [
+          "MODERATE CAPE: 1500 J/kg (7-day max)",
+          "UNSTABLE: LI -3.2°C",
+          "MODERATE GUSTS: 47.9 mph (16-day max)",
+          "WEAK CAP: CIN 0 J/kg (storms develop easily)",
+          "MULTIPLE HIGH-RISK DAYS: 3 days with CAPE >= 1000"
+        ]
+      },
+      {
+        "location": "Tulsa",
+        "threatLevel": "HIGH",
+        "score": 50,
+        "currentCAPE": 0,
+        "maxCAPE24hr": 0,
+        "factors": [
+          "MODERATE CAPE: 1110 J/kg (7-day max)",
+          "MODERATE GUSTS: 42.1 mph (16-day max)",
+          "WEAK CAP: CIN 0 J/kg (storms develop easily)",
+          "MULTIPLE HIGH-RISK DAYS: 3 days with CAPE >= 1000"
+        ]
+      },
+      {
+        "location": "Stillwater",
+        "threatLevel": "HIGH",
+        "score": 50,
+        "currentCAPE": 0,
+        "maxCAPE24hr": 0,
+        "factors": [
+          "MODERATE CAPE: 1510 J/kg (7-day max)",
+          "MODERATE GUSTS: 46.1 mph (16-day max)",
+          "WEAK CAP: CIN 0 J/kg (storms develop easily)",
+          "MULTIPLE HIGH-RISK DAYS: 3 days with CAPE >= 1000"
+        ]
+      }
+    ]
+  },
+  "overallAssessment": {
+    "threatLevel": "HIGH",
+    "recommendation": "Elevated severe weather threat. Review your safety plan. Stay weather aware.",
+    "factors": {
+      "convectiveOutlookRisk": "NONE",
+      "activeMCDs": true,
+      "oklahomaInMCD": false,
+      "gridIndicatorsShowHighRisk": false,
+      "openMeteoThreatLevel": "HIGH",
+      "maxCAPE": 0,
+      "capeIndicatesRisk": false
+    }
+  },
+  "appIntegration": {
+    "priorityOrder": [
+      "1. NWS Alerts (immediate warnings)",
+      "2. SPC Mesoscale Discussions (1-3 hour advance notice)",
+      "3. Open-Meteo CAPE/Lifted Index (tornado environment)",
+      "4. SPC Convective Outlook (daily risk level)",
+      "5. NWS Grid Data (detailed forecast analysis)"
+    ],
+    "alertRecommendations": {
+      "pushNotification": "MCD with watch probability >= 80% OR Tornado Warning OR CAPE >= 2500",
+      "inAppAlert": "Enhanced risk or higher OR MCD with probability >= 50% OR CAPE >= 1000",
+      "statusUpdate": "Any active MCD OR Marginal/Slight risk OR CAPE >= 300"
+    }
+  }
+}

@@ -1,53 +1,63 @@
 /**
  * Test Weather APIs - Node.js Test Script
  * 
- * This script tests all the weather APIs directly from Node.js
- * to verify they work before integrating into React Native.
+ * This script tests all weather APIs directly from Node.js
+ * including the NEW predictive weather APIs for tornado forecasting.
  * 
  * HOW TO RUN:
  * 1. Make sure your package.json has "type": "module"
  * 2. Run: node test-weather-apis.js
  * 
- * WHAT THIS SCRIPT DOES:
- * - Tests NWS Alerts API (free, no key required)
- * - Tests SPC Storm Reports (free, no key required)
- * - Tests FEMA Open Shelters (free, no key required)
- * - Tests the unified fetchAllData function
- * - Prints results in a readable format
+ * APIS TESTED:
+ * 
+ * CURRENT WEATHER:
+ * - NWS Alerts API (active warnings)
+ * - SPC Storm Reports (today's tornado/wind/hail)
+ * - FEMA Open Shelters (emergency shelters)
+ * 
+ * PREDICTIVE WEATHER (NEW):
+ * - SPC Convective Outlook (tornado probability Day 1-3)
+ * - SPC Mesoscale Discussions (pre-watch alerts)
+ * - NWS Forecast Grid Data (severe weather indicators)
  * 
  * TEST LOCATION:
  * Oklahoma City, OK (35.4676, -97.5164)
- * You can change this to test other locations.
  */
 
 // ==========================================
-// IMPORT THE WEATHER SERVICE
+// CONFIGURATION
 // ==========================================
 
-import {
-  WeatherDataService,
-  NWSAlertsService,
-  SPCStormReportsService,
-  FEMASheltersService,
-  CONFIG
-} from './weatherDataService.js';
-
-// ==========================================
-// TEST CONFIGURATION
-// ==========================================
+const CONFIG = {
+  // API endpoints - Current Weather
+  NWS_BASE_URL: 'https://api.weather.gov',
+  SPC_REPORTS_URL: 'https://www.spc.noaa.gov/climo/reports',
+  FEMA_SHELTERS_URL: 'https://gis.fema.gov/arcgis/rest/services/NSS/OpenShelters/MapServer/0/query',
+  
+  // API endpoints - Predictive Weather
+  SPC_OUTLOOK_URL: 'https://mapservices.weather.noaa.gov/vector/rest/services/outlooks/SPC_wx_outlks/MapServer',
+  SPC_MCD_URL: 'https://www.spc.noaa.gov/products/md',
+  
+  // API endpoints - Open-Meteo (FREE tornado prediction metrics)
+  OPEN_METEO_URL: 'https://api.open-meteo.com/v1/forecast',
+  
+  // Required headers
+  APP_USER_AGENT: 'TornadoShelterApp/1.0 (api-test)',
+  
+  // Request timeout
+  TIMEOUT_MS: 15000
+};
 
 // Test location: Oklahoma City, OK
-// Change these coordinates to test other locations
 const TEST_LOCATION = {
   name: 'Oklahoma City, OK',
   latitude: 35.4676,
   longitude: -97.5164
 };
 
-// State code for shelter queries
 const STATE_CODE = 'OK';
 
-// Colors for console output (makes it easier to read)
+// Console colors
 const COLORS = {
   reset: '\x1b[0m',
   bright: '\x1b[1m',
@@ -63,56 +73,50 @@ const COLORS = {
 // HELPER FUNCTIONS
 // ==========================================
 
-/**
- * Prints a section header
- */
 function printHeader(title) {
-  console.log('\n' + COLORS.cyan + '='.repeat(60) + COLORS.reset);
+  console.log('\n' + COLORS.cyan + '═'.repeat(60) + COLORS.reset);
   console.log(COLORS.bright + COLORS.cyan + ' ' + title + COLORS.reset);
-  console.log(COLORS.cyan + '='.repeat(60) + COLORS.reset + '\n');
+  console.log(COLORS.cyan + '═'.repeat(60) + COLORS.reset + '\n');
 }
 
-/**
- * Prints success message
- */
 function printSuccess(message) {
   console.log(COLORS.green + '✓ ' + message + COLORS.reset);
 }
 
-/**
- * Prints error message
- */
 function printError(message) {
   console.log(COLORS.red + '✗ ' + message + COLORS.reset);
 }
 
-/**
- * Prints warning message
- */
 function printWarning(message) {
   console.log(COLORS.yellow + '⚠ ' + message + COLORS.reset);
 }
 
-/**
- * Prints info message
- */
 function printInfo(message) {
   console.log(COLORS.blue + 'ℹ ' + message + COLORS.reset);
 }
 
-/**
- * Formats a date for display
- */
-function formatDate(date) {
-  if (!date) return 'N/A';
-  return new Date(date).toLocaleString();
-}
-
-/**
- * Waits for specified milliseconds
- */
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = CONFIG.TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal
+    });
+    clearTimeout(timeoutId);
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error(`Request timed out after ${timeoutMs}ms`);
+    }
+    throw error;
+  }
 }
 
 // ==========================================
@@ -122,55 +126,41 @@ function delay(ms) {
 async function testNWSAlerts() {
   printHeader('TEST 1: NWS Weather Alerts API');
   
-  printInfo(`Testing location: ${TEST_LOCATION.name}`);
-  printInfo(`Coordinates: ${TEST_LOCATION.latitude}, ${TEST_LOCATION.longitude}`);
-  printInfo(`API Endpoint: ${CONFIG.NWS_BASE_URL}/alerts/active?point=...`);
+  printInfo(`Location: ${TEST_LOCATION.name}`);
+  printInfo(`Endpoint: ${CONFIG.NWS_BASE_URL}/alerts/active?point=...`);
   console.log('');
 
   try {
-    // Create service instance
-    const service = new WeatherDataService();
-    const nws = service.nwsService;
+    const url = `${CONFIG.NWS_BASE_URL}/alerts/active?point=${TEST_LOCATION.latitude},${TEST_LOCATION.longitude}`;
+    const response = await fetchWithTimeout(url, {
+      headers: {
+        'User-Agent': CONFIG.APP_USER_AGENT,
+        'Accept': 'application/geo+json'
+      }
+    });
 
-    // Fetch alerts
-    console.log('Fetching active alerts...');
-    const alerts = await nws.getActiveAlerts(
-      TEST_LOCATION.latitude,
-      TEST_LOCATION.longitude
-    );
-
-    printSuccess(`API call successful!`);
-    console.log('');
-
-    // Display results
-    if (alerts.length === 0) {
-      printInfo('No active weather alerts for this location.');
-      printInfo('This is normal when there is no severe weather.');
-    } else {
-      console.log(`Found ${COLORS.bright}${alerts.length}${COLORS.reset} active alert(s):\n`);
-      
-      alerts.forEach((alert, index) => {
-        console.log(COLORS.yellow + `--- Alert ${index + 1} ---` + COLORS.reset);
-        console.log(`  Event: ${COLORS.bright}${alert.event}${COLORS.reset}`);
-        console.log(`  Severity: ${alert.severity}`);
-        console.log(`  Urgency: ${alert.urgency}`);
-        console.log(`  Headline: ${alert.headline || 'N/A'}`);
-        console.log(`  Area: ${alert.areaDesc || 'N/A'}`);
-        console.log(`  Expires: ${formatDate(alert.expires)}`);
-        console.log(`  Tornado Related: ${alert.isTornadoWarning ? 'YES ⚠️' : 'No'}`);
-        console.log('');
-      });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
 
-    // Test state-wide alerts
-    console.log(`\nFetching state-wide alerts for ${STATE_CODE}...`);
-    const stateAlerts = await nws.getStateAlerts(STATE_CODE);
-    printSuccess(`Found ${stateAlerts.length} alert(s) across ${STATE_CODE}`);
+    const data = await response.json();
+    const alerts = data.features || [];
+
+    printSuccess(`API call successful!`);
+    console.log(`  Found ${alerts.length} active alert(s)`);
+
+    if (alerts.length > 0) {
+      console.log('\n  Sample alert:');
+      const alert = alerts[0].properties;
+      console.log(`    Event: ${alert.event}`);
+      console.log(`    Severity: ${alert.severity}`);
+      console.log(`    Headline: ${alert.headline?.substring(0, 60)}...`);
+    }
 
     return { success: true, alertCount: alerts.length };
 
   } catch (error) {
-    printError(`NWS API test failed: ${error.message}`);
+    printError(`Failed: ${error.message}`);
     return { success: false, error: error.message };
   }
 }
@@ -180,242 +170,534 @@ async function testNWSAlerts() {
 // ==========================================
 
 async function testSPCReports() {
-  printHeader('TEST 2: SPC Storm Reports');
+  printHeader('TEST 2: SPC Storm Reports (Today)');
   
-  printInfo(`API Endpoint: ${CONFIG.SPC_REPORTS_URL}/today_torn.csv`);
-  printInfo('Fetching today\'s severe weather reports...');
+  printInfo(`Endpoint: ${CONFIG.SPC_REPORTS_URL}/today_torn.csv`);
   console.log('');
 
   try {
-    // Create service instance
-    const service = new WeatherDataService();
-    const spc = service.spcService;
+    const reportTypes = ['tornado', 'wind', 'hail'];
+    const files = ['today_torn.csv', 'today_wind.csv', 'today_hail.csv'];
+    const results = {};
 
-    // Fetch all report types
-    console.log('Fetching tornado reports...');
-    const tornadoReports = await spc.getTodaysReports('tornado');
-    printSuccess(`Tornado reports: ${tornadoReports.length}`);
+    for (let i = 0; i < reportTypes.length; i++) {
+      const url = `${CONFIG.SPC_REPORTS_URL}/${files[i]}`;
+      const response = await fetchWithTimeout(url);
 
-    console.log('Fetching wind reports...');
-    const windReports = await spc.getTodaysReports('wind');
-    printSuccess(`Wind reports: ${windReports.length}`);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status} for ${reportTypes[i]}`);
+      }
 
-    console.log('Fetching hail reports...');
-    const hailReports = await spc.getTodaysReports('hail');
-    printSuccess(`Hail reports: ${hailReports.length}`);
-
-    console.log('');
-
-    // Show summary
-    const totalReports = tornadoReports.length + windReports.length + hailReports.length;
-    
-    if (totalReports === 0) {
-      printInfo('No severe weather reports today.');
-      printInfo('This is normal on calm weather days.');
-    } else {
-      console.log(COLORS.bright + 'Today\'s Severe Weather Summary:' + COLORS.reset);
-      console.log(`  🌪️  Tornado reports: ${tornadoReports.length}`);
-      console.log(`  💨 Wind reports: ${windReports.length}`);
-      console.log(`  🧊 Hail reports: ${hailReports.length}`);
-      console.log(`  📊 Total: ${totalReports}`);
+      const csvText = await response.text();
+      const lines = csvText.trim().split('\n');
+      const count = lines.length > 1 ? lines.length - 1 : 0;
+      
+      results[reportTypes[i]] = count;
+      printSuccess(`${reportTypes[i]}: ${count} report(s)`);
+      
+      await delay(300);
     }
 
-    // Show sample tornado report if any exist
-    if (tornadoReports.length > 0) {
-      console.log('\n' + COLORS.yellow + 'Sample Tornado Report:' + COLORS.reset);
-      const sample = tornadoReports[0];
-      console.log(`  Time: ${sample.time}`);
-      console.log(`  Location: ${sample.location}, ${sample.county} County, ${sample.state}`);
-      console.log(`  F-Scale: ${sample.fScale}`);
-      console.log(`  Coordinates: ${sample.latitude}, ${sample.longitude}`);
-      console.log(`  Comments: ${sample.comments || 'None'}`);
-    }
-
-    // Test nearby reports
-    console.log('\n' + `Checking for reports within 100 miles of ${TEST_LOCATION.name}...`);
-    const nearbyReports = await spc.getNearbyReports(
-      TEST_LOCATION.latitude,
-      TEST_LOCATION.longitude,
-      100
-    );
-    
-    const nearbyTotal = nearbyReports.tornado.length + nearbyReports.wind.length + nearbyReports.hail.length;
-    printInfo(`Found ${nearbyTotal} report(s) within 100 miles`);
-
-    return { 
-      success: true, 
-      tornado: tornadoReports.length,
-      wind: windReports.length,
-      hail: hailReports.length
-    };
+    return { success: true, ...results };
 
   } catch (error) {
-    printError(`SPC Reports test failed: ${error.message}`);
+    printError(`Failed: ${error.message}`);
     return { success: false, error: error.message };
   }
 }
 
 // ==========================================
-// TEST 3: FEMA OPEN SHELTERS
+// TEST 3: FEMA SHELTERS
 // ==========================================
 
 async function testFEMAShelters() {
-  printHeader('TEST 3: FEMA Open Shelters API');
+  printHeader('TEST 3: FEMA Open Shelters');
   
-  printInfo('API Endpoint: gis.fema.gov/arcgis/rest/services/NSS/OpenShelters');
-  printInfo(`Fetching open shelters in ${STATE_CODE}...`);
+  printInfo(`Endpoint: gis.fema.gov/arcgis/rest/services/NSS/OpenShelters`);
+  printInfo(`State: ${STATE_CODE}`);
   console.log('');
 
   try {
-    // Create service instance
-    const service = new WeatherDataService();
-    const fema = service.femaService;
+    const params = new URLSearchParams({
+      where: `STATE='${STATE_CODE}'`,
+      outFields: 'SHELTER_NAME,CITY,SHELTER_STATUS',
+      f: 'json'
+    });
 
-    // Fetch state shelters
-    console.log(`Fetching open shelters in ${STATE_CODE}...`);
-    const stateShelters = await fema.getOpenShelters(STATE_CODE);
-    printSuccess(`API call successful!`);
+    const url = `${CONFIG.FEMA_SHELTERS_URL}?${params}`;
+    const response = await fetchWithTimeout(url);
 
-    console.log('');
-
-    if (stateShelters.length === 0) {
-      printInfo(`No FEMA emergency shelters currently open in ${STATE_CODE}.`);
-      printInfo('This is normal when there is no active disaster.');
-      printInfo('Shelters open during emergencies (tornadoes, floods, etc.)');
-    } else {
-      console.log(`Found ${COLORS.bright}${stateShelters.length}${COLORS.reset} open shelter(s) in ${STATE_CODE}:\n`);
-      
-      // Show first 5 shelters
-      const displayCount = Math.min(5, stateShelters.length);
-      for (let i = 0; i < displayCount; i++) {
-        const shelter = stateShelters[i];
-        console.log(COLORS.yellow + `--- Shelter ${i + 1} ---` + COLORS.reset);
-        console.log(`  Name: ${COLORS.bright}${shelter.name}${COLORS.reset}`);
-        console.log(`  Address: ${shelter.address}, ${shelter.city}, ${shelter.state}`);
-        console.log(`  Status: ${shelter.isOpen ? '🟢 OPEN' : '🔴 Closed'}`);
-        console.log(`  Capacity: ${shelter.totalCapacity || 'Unknown'}`);
-        console.log(`  Current Population: ${shelter.currentPopulation || 'Unknown'}`);
-        console.log(`  Accepts Pets: ${shelter.acceptsPets ? 'Yes 🐕' : 'No'}`);
-        console.log(`  ADA Accessible: ${shelter.adaAccessible ? 'Yes ♿' : 'Unknown'}`);
-        console.log('');
-      }
-
-      if (stateShelters.length > 5) {
-        printInfo(`... and ${stateShelters.length - 5} more shelters`);
-      }
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
     }
 
-    // Test nearby shelters
-    console.log(`\nFetching shelters within 50 miles of ${TEST_LOCATION.name}...`);
-    const nearbyShelters = await fema.getNearbyShelters(
-      TEST_LOCATION.latitude,
-      TEST_LOCATION.longitude,
-      50
-    );
-    printInfo(`Found ${nearbyShelters.length} shelter(s) within 50 miles`);
+    const data = await response.json();
+    const shelters = data.features || [];
 
-    return { success: true, shelterCount: stateShelters.length };
+    printSuccess(`API call successful!`);
+    console.log(`  Found ${shelters.length} shelter(s) in ${STATE_CODE}`);
+
+    if (shelters.length === 0) {
+      printInfo('  No emergency shelters currently open (normal during calm weather)');
+    }
+
+    return { success: true, shelterCount: shelters.length };
 
   } catch (error) {
-    printError(`FEMA Shelters test failed: ${error.message}`);
+    printError(`Failed: ${error.message}`);
     return { success: false, error: error.message };
   }
 }
 
 // ==========================================
-// TEST 4: UNIFIED DATA FETCH
+// TEST 4: SPC CONVECTIVE OUTLOOK (PREDICTIVE)
 // ==========================================
 
-async function testUnifiedFetch() {
-  printHeader('TEST 4: Unified Data Fetch (All APIs Combined)');
+async function testSPCConvectiveOutlook() {
+  printHeader('TEST 4: SPC Convective Outlook (Tornado Probability)');
   
-  printInfo(`This test calls all APIs at once using fetchAllData()`);
-  printInfo(`Location: ${TEST_LOCATION.name}`);
+  printInfo(`Endpoint: ${CONFIG.SPC_OUTLOOK_URL}`);
+  printInfo('Data: Day 1-3 tornado probability forecasts');
   console.log('');
 
   try {
-    // Create service instance
-    const service = new WeatherDataService();
+    // Test Day 1 Categorical Outlook
+    const categoricalUrl = `${CONFIG.SPC_OUTLOOK_URL}/1/query?where=1%3D1&outFields=*&f=json`;
+    const categoricalResponse = await fetchWithTimeout(categoricalUrl, {
+      headers: { 'User-Agent': CONFIG.APP_USER_AGENT }
+    });
 
-    // Fetch all data
-    console.log('Fetching all weather data...');
-    const startTime = Date.now();
-    
-    const data = await service.fetchAllData(
-      TEST_LOCATION.latitude,
-      TEST_LOCATION.longitude,
-      {
-        stateCode: STATE_CODE,
-        shelterRadiusMiles: 50,
-        reportRadiusMiles: 100,
-        includeStateAlerts: true
-      }
-    );
+    if (!categoricalResponse.ok) {
+      throw new Error(`HTTP ${categoricalResponse.status} for categorical outlook`);
+    }
 
-    const duration = Date.now() - startTime;
-    printSuccess(`All data fetched in ${duration}ms`);
+    const categoricalData = await categoricalResponse.json();
+    const categoricalFeatures = categoricalData.features || [];
+    printSuccess(`Day 1 Categorical Outlook: ${categoricalFeatures.length} risk zone(s)`);
 
-    console.log('');
-    console.log(COLORS.bright + '📊 UNIFIED DATA SUMMARY' + COLORS.reset);
-    console.log('─'.repeat(40));
-    
-    // Threat Level
-    const threatColors = {
-      'EXTREME': COLORS.red,
-      'HIGH': COLORS.red,
-      'ELEVATED': COLORS.yellow,
-      'MODERATE': COLORS.yellow,
-      'LOW': COLORS.green,
-      'NONE': COLORS.green
+    // Show risk levels found
+    if (categoricalFeatures.length > 0) {
+      const riskLevels = categoricalFeatures.map(f => f.attributes.LABEL || f.attributes.LABEL2 || 'Unknown');
+      console.log(`    Risk levels: ${[...new Set(riskLevels)].join(', ')}`);
+    }
+
+    await delay(500);
+
+    // Test Day 1 Tornado Probability
+    const tornadoUrl = `${CONFIG.SPC_OUTLOOK_URL}/7/query?where=1%3D1&outFields=*&f=json`;
+    const tornadoResponse = await fetchWithTimeout(tornadoUrl, {
+      headers: { 'User-Agent': CONFIG.APP_USER_AGENT }
+    });
+
+    if (!tornadoResponse.ok) {
+      throw new Error(`HTTP ${tornadoResponse.status} for tornado outlook`);
+    }
+
+    const tornadoData = await tornadoResponse.json();
+    const tornadoFeatures = tornadoData.features || [];
+    printSuccess(`Day 1 Tornado Probability: ${tornadoFeatures.length} zone(s)`);
+
+    // Show probability levels
+    if (tornadoFeatures.length > 0) {
+      const probLevels = tornadoFeatures.map(f => f.attributes.LABEL2 || 'Unknown');
+      console.log(`    Probabilities: ${[...new Set(probLevels)].join(', ')}`);
+    }
+
+    await delay(500);
+
+    // Test Day 1 Significant Tornado
+    const sigTornUrl = `${CONFIG.SPC_OUTLOOK_URL}/8/query?where=1%3D1&outFields=*&f=json`;
+    const sigTornResponse = await fetchWithTimeout(sigTornUrl, {
+      headers: { 'User-Agent': CONFIG.APP_USER_AGENT }
+    });
+
+    if (!sigTornResponse.ok) {
+      throw new Error(`HTTP ${sigTornResponse.status} for significant tornado`);
+    }
+
+    const sigTornData = await sigTornResponse.json();
+    const sigTornFeatures = sigTornData.features || [];
+    printSuccess(`Day 1 Significant Tornado (EF2+): ${sigTornFeatures.length} zone(s)`);
+
+    console.log('\n' + COLORS.bright + '  JSON Response Structure:' + COLORS.reset);
+    console.log('  {');
+    console.log('    features: [');
+    console.log('      {');
+    console.log('        attributes: { LABEL, LABEL2, VALID, EXPIRE, ISSUE },');
+    console.log('        geometry: { rings: [[lon, lat], ...] }');
+    console.log('      }');
+    console.log('    ]');
+    console.log('  }');
+
+    return { 
+      success: true, 
+      categoricalZones: categoricalFeatures.length,
+      tornadoZones: tornadoFeatures.length,
+      significantTornadoZones: sigTornFeatures.length
     };
-    const threatColor = threatColors[data.threatLevel] || COLORS.reset;
-    console.log(`\n${COLORS.bright}Threat Level:${COLORS.reset} ${threatColor}${data.threatLevel}${COLORS.reset}`);
-    
-    if (data.hasTornadoWarning) {
-      console.log(COLORS.red + COLORS.bright + '⚠️  TORNADO WARNING ACTIVE!' + COLORS.reset);
-    }
-
-    // Alerts Summary
-    console.log(`\n${COLORS.bright}Weather Alerts:${COLORS.reset}`);
-    console.log(`  Total Active: ${data.alerts.count}`);
-    console.log(`  Tornado Alerts: ${data.alerts.tornado.length}`);
-    console.log(`  Severe Thunderstorm: ${data.alerts.severeThunderstorm.length}`);
-    console.log(`  State-wide (${STATE_CODE}): ${data.alerts.state.length}`);
-
-    // Storm Reports Summary
-    console.log(`\n${COLORS.bright}Today's Storm Reports (within 100mi):${COLORS.reset}`);
-    console.log(`  Tornado: ${data.stormReports.tornadoCount}`);
-    console.log(`  Wind: ${data.stormReports.windCount}`);
-    console.log(`  Hail: ${data.stormReports.hailCount}`);
-    console.log(`  Total: ${data.stormReports.totalCount}`);
-
-    // Shelters Summary
-    console.log(`\n${COLORS.bright}Open Shelters:${COLORS.reset}`);
-    console.log(`  Nearby (50mi): ${data.shelters.nearbyCount}`);
-    console.log(`  State-wide: ${data.shelters.stateCount}`);
-
-    // Quick Access Summary
-    console.log(`\n${COLORS.bright}Quick Access:${COLORS.reset}`);
-    if (data.summary.closestShelter) {
-      console.log(`  Closest Shelter: ${data.summary.closestShelter.name} (${data.summary.closestShelter.distanceMiles} mi)`);
-    } else {
-      console.log(`  Closest Shelter: None found nearby`);
-    }
-    if (data.summary.mostUrgentAlert) {
-      console.log(`  Most Urgent Alert: ${data.summary.mostUrgentAlert.event}`);
-    } else {
-      console.log(`  Most Urgent Alert: None`);
-    }
-
-    // Metadata
-    console.log(`\n${COLORS.bright}Metadata:${COLORS.reset}`);
-    console.log(`  Fetched At: ${data.fetchedAt.toLocaleString()}`);
-    console.log(`  Duration: ${data.fetchDurationMs}ms`);
-
-    return { success: true, data };
 
   } catch (error) {
-    printError(`Unified fetch test failed: ${error.message}`);
+    printError(`Failed: ${error.message}`);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==========================================
+// TEST 5: SPC MESOSCALE DISCUSSIONS (PREDICTIVE)
+// ==========================================
+
+async function testSPCMesoscaleDiscussions() {
+  printHeader('TEST 5: SPC Mesoscale Discussions (Pre-Watch Alerts)');
+  
+  printInfo(`Endpoint: ${CONFIG.SPC_MCD_URL}/`);
+  printInfo('Data: Pre-watch analysis (1-3 hours advance notice)');
+  console.log('');
+
+  try {
+    const url = `${CONFIG.SPC_MCD_URL}/`;
+    const response = await fetchWithTimeout(url, {
+      headers: { 
+        'User-Agent': CONFIG.APP_USER_AGENT,
+        'Accept': 'text/html'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const html = await response.text();
+    
+    // Parse MCD numbers from the HTML
+    const mcdMatches = html.match(/md\d{4}/g) || [];
+    const uniqueMCDs = [...new Set(mcdMatches)];
+
+    printSuccess(`API call successful!`);
+    console.log(`  Found ${uniqueMCDs.length} recent Mesoscale Discussion(s)`);
+
+    if (uniqueMCDs.length > 0) {
+      console.log(`  Latest MCDs: ${uniqueMCDs.slice(0, 5).join(', ')}`);
+      
+      // Try to fetch details for the most recent MCD
+      const latestMCD = uniqueMCDs[0];
+      const mcdUrl = `${CONFIG.SPC_MCD_URL}/${latestMCD}.html`;
+      
+      try {
+        const mcdResponse = await fetchWithTimeout(mcdUrl);
+        if (mcdResponse.ok) {
+          const mcdHtml = await mcdResponse.text();
+          
+          // Extract concerning line
+          const concerningMatch = mcdHtml.match(/CONCERNING[.]{3}([^<\n]+)/i);
+          if (concerningMatch) {
+            console.log(`\n  Latest MCD (${latestMCD}):`);
+            console.log(`    Concerning: ${concerningMatch[1].trim().substring(0, 60)}...`);
+          }
+        }
+      } catch (e) {
+        // Ignore individual MCD fetch errors
+      }
+    } else {
+      printInfo('  No active MCDs (normal during calm weather)');
+    }
+
+    console.log('\n' + COLORS.bright + '  Why MCDs Matter:' + COLORS.reset);
+    console.log('  • Issued 1-3 hours BEFORE tornado watches');
+    console.log('  • Best early warning tool for your app');
+    console.log('  • Push notification when watch_probability >= 80%');
+
+    return { 
+      success: true, 
+      mcdCount: uniqueMCDs.length,
+      latestMCDs: uniqueMCDs.slice(0, 5)
+    };
+
+  } catch (error) {
+    printError(`Failed: ${error.message}`);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==========================================
+// TEST 6: NWS FORECAST GRID DATA (PREDICTIVE)
+// ==========================================
+
+async function testNWSForecastGridData() {
+  printHeader('TEST 6: NWS Forecast Grid Data (Severe Weather Indicators)');
+  
+  printInfo(`Location: ${TEST_LOCATION.name}`);
+  printInfo(`Endpoint: ${CONFIG.NWS_BASE_URL}/gridpoints/{office}/{x},{y}`);
+  console.log('');
+
+  try {
+    // Step 1: Get grid point info
+    const pointUrl = `${CONFIG.NWS_BASE_URL}/points/${TEST_LOCATION.latitude},${TEST_LOCATION.longitude}`;
+    const pointResponse = await fetchWithTimeout(pointUrl, {
+      headers: {
+        'User-Agent': CONFIG.APP_USER_AGENT,
+        'Accept': 'application/geo+json'
+      }
+    });
+
+    if (!pointResponse.ok) {
+      throw new Error(`HTTP ${pointResponse.status} for points lookup`);
+    }
+
+    const pointData = await pointResponse.json();
+    const gridId = pointData.properties.gridId;
+    const gridX = pointData.properties.gridX;
+    const gridY = pointData.properties.gridY;
+    const forecastUrl = pointData.properties.forecastGridData;
+
+    printSuccess(`Grid location: ${gridId} (${gridX}, ${gridY})`);
+
+    await delay(500);
+
+    // Step 2: Get grid forecast data
+    const gridResponse = await fetchWithTimeout(forecastUrl, {
+      headers: {
+        'User-Agent': CONFIG.APP_USER_AGENT,
+        'Accept': 'application/geo+json'
+      }
+    });
+
+    if (!gridResponse.ok) {
+      throw new Error(`HTTP ${gridResponse.status} for grid data`);
+    }
+
+    const gridData = await gridResponse.json();
+    const props = gridData.properties;
+
+    printSuccess(`Grid forecast data retrieved!`);
+
+    // Show available parameters
+    const availableParams = Object.keys(props).filter(k => 
+      props[k]?.values && Array.isArray(props[k].values) && props[k].values.length > 0
+    );
+
+    console.log(`\n  Available parameters: ${availableParams.length}`);
+    
+    // Show key severe weather parameters
+    const keyParams = ['temperature', 'dewpoint', 'windSpeed', 'windGust', 'windDirection', 
+                       'probabilityOfPrecipitation', 'probabilityOfThunder'];
+    
+    console.log('\n' + COLORS.bright + '  Key Severe Weather Parameters:' + COLORS.reset);
+    
+    for (const param of keyParams) {
+      if (props[param]?.values?.length > 0) {
+        const firstValue = props[param].values[0];
+        console.log(`    ${param}: ${firstValue.value} (next hour)`);
+      }
+    }
+
+    // Calculate simple severe weather indicators
+    console.log('\n' + COLORS.bright + '  Severe Weather Indicators:' + COLORS.reset);
+    
+    const dewpoints = props.dewpoint?.values?.slice(0, 5).map(v => v.value) || [];
+    const avgDewpoint = dewpoints.length > 0 ? (dewpoints.reduce((a, b) => a + b, 0) / dewpoints.length).toFixed(1) : 'N/A';
+    console.log(`    Avg Dewpoint (next 5hr): ${avgDewpoint}°C`);
+    
+    const thunderProbs = props.probabilityOfThunder?.values?.slice(0, 5).map(v => v.value) || [];
+    const maxThunder = thunderProbs.length > 0 ? Math.max(...thunderProbs) : 0;
+    console.log(`    Max Thunder Probability: ${maxThunder}%`);
+    
+    const gusts = props.windGust?.values?.slice(0, 5).map(v => v.value) || [];
+    const maxGust = gusts.length > 0 ? Math.max(...gusts).toFixed(1) : 'N/A';
+    console.log(`    Max Wind Gust: ${maxGust} km/h`);
+
+    console.log('\n' + COLORS.bright + '  JSON Response Structure:' + COLORS.reset);
+    console.log('  {');
+    console.log('    properties: {');
+    console.log('      temperature: { values: [{ validTime, value }] },');
+    console.log('      dewpoint: { values: [...] },');
+    console.log('      windSpeed: { values: [...] },');
+    console.log('      probabilityOfThunder: { values: [...] },');
+    console.log('      // ... many more parameters');
+    console.log('    }');
+    console.log('  }');
+
+    return { 
+      success: true, 
+      gridId,
+      gridX,
+      gridY,
+      parameterCount: availableParams.length
+    };
+
+  } catch (error) {
+    printError(`Failed: ${error.message}`);
+    return { success: false, error: error.message };
+  }
+}
+
+// ==========================================
+// TEST 7: OPEN-METEO TORNADO METRICS (NEW)
+// ==========================================
+
+async function testOpenMeteoTornadoMetrics() {
+  printHeader('TEST 7: Open-Meteo 16-Day Tornado Prediction Metrics');
+  
+  printInfo(`Endpoint: ${CONFIG.OPEN_METEO_URL}`);
+  printInfo('Data: CAPE, Lifted Index, CIN, Dewpoint, Wind Speed/Gusts');
+  printInfo('Forecast Range: 16 DAYS');
+  printInfo('Cost: FREE - No API key required');
+  console.log('');
+
+  try {
+    // Parameters for tornado prediction
+    const hourlyParams = [
+      'cape',
+      'lifted_index',
+      'convective_inhibition',
+      'temperature_2m',
+      'dewpoint_2m',
+      'relative_humidity_2m',
+      'wind_speed_10m',
+      'wind_gusts_10m',
+      'pressure_msl'
+    ].join(',');
+
+    const dailyParams = [
+      'cape_max',
+      'cape_min', 
+      'cape_mean',
+      'precipitation_sum',
+      'wind_gusts_10m_max'
+    ].join(',');
+
+    const url = `${CONFIG.OPEN_METEO_URL}?latitude=${TEST_LOCATION.latitude}&longitude=${TEST_LOCATION.longitude}&hourly=${hourlyParams}&daily=${dailyParams}&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/Chicago&forecast_days=16`;
+
+    const response = await fetchWithTimeout(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    printSuccess(`API call successful!`);
+    console.log(`  Timezone: ${data.timezone}`);
+    console.log(`  Elevation: ${data.elevation}m`);
+    console.log(`  Forecast Days: 16`);
+
+    // Get current hour's data
+    const hourlyData = data.hourly;
+    const dailyData = data.daily;
+    const currentHourIndex = new Date().getHours();
+
+    console.log('\n' + COLORS.bright + '  Current Tornado Prediction Metrics:' + COLORS.reset);
+    
+    // CAPE
+    const cape = hourlyData.cape?.[currentHourIndex] || 0;
+    const capeLevel = cape >= 2500 ? COLORS.red + 'HIGH' : 
+                      cape >= 1000 ? COLORS.yellow + 'MODERATE' : 
+                      cape >= 300 ? COLORS.green + 'LOW' : COLORS.green + 'MINIMAL';
+    console.log(`    CAPE: ${cape} J/kg (${capeLevel}${COLORS.reset})`);
+
+    // Lifted Index
+    const li = hourlyData.lifted_index?.[currentHourIndex];
+    if (li !== null && li !== undefined) {
+      const liLevel = li <= -6 ? COLORS.red + 'VERY UNSTABLE' :
+                      li <= -3 ? COLORS.yellow + 'UNSTABLE' :
+                      li < 0 ? COLORS.yellow + 'MARGINAL' : COLORS.green + 'STABLE';
+      console.log(`    Lifted Index: ${li}°C (${liLevel}${COLORS.reset})`);
+    } else {
+      console.log(`    Lifted Index: N/A`);
+    }
+
+    // CIN
+    const cin = hourlyData.convective_inhibition?.[currentHourIndex] || 0;
+    const cinLevel = cin < 50 ? COLORS.red + 'WEAK CAP' :
+                     cin < 200 ? COLORS.yellow + 'MODERATE CAP' : COLORS.green + 'STRONG CAP';
+    console.log(`    CIN: ${cin} J/kg (${cinLevel}${COLORS.reset})`);
+
+    // Dewpoint
+    const dewpoint = hourlyData.dewpoint_2m?.[currentHourIndex];
+    if (dewpoint !== undefined) {
+      const dewpointC = (dewpoint - 32) * 5/9;
+      const dpLevel = dewpointC >= 20 ? COLORS.red + 'HIGH MOISTURE' :
+                      dewpointC >= 15 ? COLORS.yellow + 'GOOD MOISTURE' : COLORS.green + 'DRY';
+      console.log(`    Dewpoint: ${dewpoint}°F (${dpLevel}${COLORS.reset})`);
+    }
+
+    // Wind Gusts
+    const windGust = hourlyData.wind_gusts_10m?.[currentHourIndex] || 0;
+    const gustLevel = windGust >= 50 ? COLORS.red + 'SEVERE' :
+                      windGust >= 30 ? COLORS.yellow + 'STRONG' : COLORS.green + 'LIGHT';
+    console.log(`    Wind Gusts: ${windGust} mph (${gustLevel}${COLORS.reset})`);
+
+    // 16-Day Daily CAPE Summary
+    console.log('\n' + COLORS.bright + '  16-Day CAPE Forecast:' + COLORS.reset);
+    
+    const maxCape7day = Math.max(...(dailyData.cape_max?.slice(0, 7) || [0]));
+    const maxCape16day = Math.max(...(dailyData.cape_max || [0]));
+    
+    console.log(`    Max CAPE (Days 1-7): ${maxCape7day} J/kg`);
+    console.log(`    Max CAPE (Days 1-16): ${maxCape16day} J/kg`);
+
+    // Show high-risk days
+    const highRiskDays = [];
+    dailyData.time?.forEach((date, i) => {
+      const dayMax = dailyData.cape_max?.[i] || 0;
+      if (dayMax >= 1000) {
+        highRiskDays.push({ date, cape: dayMax });
+      }
+    });
+
+    if (highRiskDays.length > 0) {
+      console.log('\n' + COLORS.yellow + '  ⚠️  High-Risk Days (CAPE >= 1000):' + COLORS.reset);
+      highRiskDays.forEach(day => {
+        const riskColor = day.cape >= 2500 ? COLORS.red : COLORS.yellow;
+        console.log(`    ${day.date}: ${riskColor}${day.cape} J/kg${COLORS.reset}`);
+      });
+    } else {
+      console.log('\n' + COLORS.green + '  ✓ No high-risk days in 16-day forecast' + COLORS.reset);
+    }
+
+    // Show daily summary table
+    console.log('\n' + COLORS.bright + '  Daily CAPE Summary (First 7 Days):' + COLORS.reset);
+    console.log('    Date       | Max CAPE | Risk Level');
+    console.log('    ' + '-'.repeat(40));
+    
+    dailyData.time?.slice(0, 7).forEach((date, i) => {
+      const dayMax = dailyData.cape_max?.[i] || 0;
+      let risk = 'MINIMAL';
+      let color = COLORS.green;
+      if (dayMax >= 4000) { risk = 'EXTREME'; color = COLORS.red; }
+      else if (dayMax >= 2500) { risk = 'HIGH'; color = COLORS.red; }
+      else if (dayMax >= 1000) { risk = 'MODERATE'; color = COLORS.yellow; }
+      else if (dayMax >= 300) { risk = 'LOW'; color = COLORS.green; }
+      
+      console.log(`    ${date} | ${String(dayMax).padStart(8)} | ${color}${risk}${COLORS.reset}`);
+    });
+
+    // Tornado threat assessment
+    let threatScore = 0;
+    if (maxCape16day >= 2500) threatScore += 30;
+    else if (maxCape16day >= 1000) threatScore += 20;
+    else if (maxCape16day >= 300) threatScore += 10;
+
+    if (highRiskDays.length >= 3) threatScore += 15;
+    else if (highRiskDays.length >= 1) threatScore += 10;
+
+    const threatLevel = threatScore >= 40 ? COLORS.red + 'HIGH' :
+                        threatScore >= 25 ? COLORS.yellow + 'MODERATE' :
+                        threatScore >= 10 ? COLORS.green + 'LOW' : COLORS.green + 'MINIMAL';
+    
+    console.log(`\n  ${COLORS.bright}16-Day Tornado Threat Level: ${threatLevel}${COLORS.reset} (Score: ${threatScore})`);
+
+    return { 
+      success: true, 
+      currentCAPE: cape,
+      currentLI: li,
+      maxCAPE_7day: maxCape7day,
+      maxCAPE_16day: maxCape16day,
+      highRiskDays: highRiskDays.length,
+      threatScore
+    };
+
+  } catch (error) {
+    printError(`Failed: ${error.message}`);
     return { success: false, error: error.message };
   }
 }
@@ -427,55 +709,111 @@ async function testUnifiedFetch() {
 async function runAllTests() {
   console.log('\n');
   console.log(COLORS.magenta + '╔════════════════════════════════════════════════════════════╗' + COLORS.reset);
-  console.log(COLORS.magenta + '║' + COLORS.reset + COLORS.bright + '       TORNADO SHELTER APP - WEATHER API TEST SUITE          ' + COLORS.reset + COLORS.magenta + '║' + COLORS.reset);
+  console.log(COLORS.magenta + '║' + COLORS.reset + COLORS.bright + '   TORNADO SHELTER APP - WEATHER API TEST SUITE (COMPLETE)   ' + COLORS.reset + COLORS.magenta + '║' + COLORS.reset);
   console.log(COLORS.magenta + '╚════════════════════════════════════════════════════════════╝' + COLORS.reset);
   
   console.log('\n' + COLORS.cyan + 'Test Location: ' + COLORS.reset + TEST_LOCATION.name);
   console.log(COLORS.cyan + 'Coordinates: ' + COLORS.reset + `${TEST_LOCATION.latitude}, ${TEST_LOCATION.longitude}`);
-  console.log(COLORS.cyan + 'State Code: ' + COLORS.reset + STATE_CODE);
   console.log(COLORS.cyan + 'Time: ' + COLORS.reset + new Date().toLocaleString());
 
   const results = {
-    nws: null,
-    spc: null,
-    fema: null,
-    unified: null
+    // Current Weather APIs
+    nwsAlerts: null,
+    spcReports: null,
+    femaShelters: null,
+    // Predictive Weather APIs
+    spcConvectiveOutlook: null,
+    spcMesoscaleDiscussions: null,
+    nwsForecastGrid: null,
+    // Tornado Metrics (NEW)
+    openMeteoTornadoMetrics: null
   };
 
-  // Run tests with delays to avoid rate limiting
-  results.nws = await testNWSAlerts();
+  console.log('\n' + COLORS.bright + '─── CURRENT WEATHER APIS ───' + COLORS.reset);
+
+  results.nwsAlerts = await testNWSAlerts();
   await delay(1000);
 
-  results.spc = await testSPCReports();
+  results.spcReports = await testSPCReports();
   await delay(1000);
 
-  results.fema = await testFEMAShelters();
+  results.femaShelters = await testFEMAShelters();
   await delay(1000);
 
-  results.unified = await testUnifiedFetch();
+  console.log('\n' + COLORS.bright + '─── PREDICTIVE WEATHER APIS ───' + COLORS.reset);
+
+  results.spcConvectiveOutlook = await testSPCConvectiveOutlook();
+  await delay(1000);
+
+  results.spcMesoscaleDiscussions = await testSPCMesoscaleDiscussions();
+  await delay(1000);
+
+  results.nwsForecastGrid = await testNWSForecastGridData();
+  await delay(1000);
+
+  console.log('\n' + COLORS.bright + '─── TORNADO PREDICTION METRICS ───' + COLORS.reset);
+
+  results.openMeteoTornadoMetrics = await testOpenMeteoTornadoMetrics();
 
   // Final Summary
   printHeader('TEST RESULTS SUMMARY');
 
-  console.log('API Test Results:');
-  console.log(`  1. NWS Alerts:     ${results.nws.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
-  console.log(`  2. SPC Reports:    ${results.spc.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
-  console.log(`  3. FEMA Shelters:  ${results.fema.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
-  console.log(`  4. Unified Fetch:  ${results.unified.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+  console.log(COLORS.bright + 'Current Weather APIs:' + COLORS.reset);
+  console.log(`  1. NWS Alerts:        ${results.nwsAlerts.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+  console.log(`  2. SPC Reports:       ${results.spcReports.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+  console.log(`  3. FEMA Shelters:     ${results.femaShelters.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
 
-  const allPassed = results.nws.success && results.spc.success && 
-                    results.fema.success && results.unified.success;
+  console.log('\n' + COLORS.bright + 'Predictive Weather APIs:' + COLORS.reset);
+  console.log(`  4. SPC Convective:    ${results.spcConvectiveOutlook.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+  console.log(`  5. SPC MCDs:          ${results.spcMesoscaleDiscussions.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+  console.log(`  6. NWS Forecast Grid: ${results.nwsForecastGrid.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+
+  console.log('\n' + COLORS.bright + 'Tornado Prediction Metrics (16-Day):' + COLORS.reset);
+  console.log(`  7. Open-Meteo:        ${results.openMeteoTornadoMetrics.success ? COLORS.green + 'PASSED ✓' : COLORS.red + 'FAILED ✗'}${COLORS.reset}`);
+  if (results.openMeteoTornadoMetrics.success) {
+    console.log(`     Current CAPE: ${results.openMeteoTornadoMetrics.currentCAPE} J/kg`);
+    console.log(`     Max CAPE (7-day): ${results.openMeteoTornadoMetrics.maxCAPE_7day} J/kg`);
+    console.log(`     Max CAPE (16-day): ${results.openMeteoTornadoMetrics.maxCAPE_16day} J/kg`);
+    console.log(`     High-Risk Days: ${results.openMeteoTornadoMetrics.highRiskDays}`);
+  }
+
+  const allPassed = Object.values(results).every(r => r?.success);
 
   console.log('');
   if (allPassed) {
     console.log(COLORS.green + COLORS.bright + '🎉 ALL TESTS PASSED!' + COLORS.reset);
-    console.log(COLORS.green + 'The weather APIs are working correctly.' + COLORS.reset);
-    console.log(COLORS.green + 'You can now integrate weatherDataService.js into your React Native app.' + COLORS.reset);
+    console.log(COLORS.green + 'All weather APIs are working correctly.' + COLORS.reset);
+    console.log(COLORS.green + 'You can now use pull-weather-data.js to fetch full data.' + COLORS.reset);
   } else {
     console.log(COLORS.yellow + '⚠️  Some tests failed.' + COLORS.reset);
-    console.log(COLORS.yellow + 'Check the error messages above for details.' + COLORS.reset);
-    console.log(COLORS.yellow + 'Common issues: network connectivity, API rate limits.' + COLORS.reset);
+    console.log(COLORS.yellow + 'Check error messages above for details.' + COLORS.reset);
   }
+
+  // Show API summary
+  console.log('\n' + COLORS.bright + '─── API REFERENCE ───' + COLORS.reset);
+  console.log('\n' + COLORS.cyan + 'Current Weather (What\'s happening now):' + COLORS.reset);
+  console.log('  • NWS Alerts: Active warnings and watches');
+  console.log('  • SPC Reports: Today\'s confirmed tornado/wind/hail events');
+  console.log('  • FEMA Shelters: Open emergency shelters');
+
+  console.log('\n' + COLORS.cyan + 'Predictive Weather (What might happen):' + COLORS.reset);
+  console.log('  • SPC Convective Outlook: Tornado probability (2%, 5%, 10%+)');
+  console.log('  • SPC Mesoscale Discussions: Pre-watch alerts (1-3 hr advance)');
+  console.log('  • NWS Forecast Grid: Detailed forecast with severe indicators');
+
+  console.log('\n' + COLORS.cyan + 'Tornado Prediction Metrics (Open-Meteo):' + COLORS.reset);
+  console.log('  • CAPE: Convective Available Potential Energy (storm fuel)');
+  console.log('  • Lifted Index: Atmospheric instability indicator');
+  console.log('  • CIN: Convective Inhibition (cap strength)');
+  console.log('  • Dewpoint: Moisture content');
+  console.log('  • Wind Gusts: Surface instability indicator');
+
+  console.log('\n' + COLORS.cyan + 'Integration Priority for App:' + COLORS.reset);
+  console.log('  1. NWS Alerts (immediate warnings)');
+  console.log('  2. SPC MCDs (best early warning - push notifications)');
+  console.log('  3. Open-Meteo CAPE/LI (tornado environment metrics)');
+  console.log('  4. SPC Convective Outlook (daily risk level)');
+  console.log('  5. NWS Forecast Grid (background analysis)');
 
   console.log('\n' + COLORS.cyan + '─'.repeat(60) + COLORS.reset);
   console.log(COLORS.cyan + 'Test completed at: ' + new Date().toLocaleString() + COLORS.reset);

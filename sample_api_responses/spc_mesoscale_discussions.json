@@ -1,0 +1,29 @@
+{
+  "pulledAt": "2026-03-01T17:57:28.072Z",
+  "source": "NOAA Storm Prediction Center",
+  "description": "Mesoscale Discussions provide advance warning before watches are issued",
+  "apiEndpoint": "https://www.spc.noaa.gov/products/md",
+  "discussions": [
+    {
+      "number": "0124",
+      "pulledAt": "2026-03-01T17:57:32.845Z",
+      "concerning": "Severe potential...Watch unlikely \n\n   Valid 011739Z - 011945Z\n\n   Probability of Watch Issuance...20 percent\n\n   SUMMARY...Scattered storms are possible primarily near and along the\n   South Florida coast this afternoon. Isolated damaging winds and\n   marginally severe hail are the expected hazards. A watch is not\n   expected.\n\n   DISCUSSION...Convection continues to increase near the South Florida\n   coast this afternoon as temperature are reaching the upper 70s to\n   low 80s F. Localized convergence along with modest mid-level ascent\n   appears to be the largest contributors to this activity. With time,\n   a more well-developed sea breeze will likely move inland and promote\n   additional development. Around 1500 J/kg MLCAPE and 30-35 kts of\n   effective shear will allow a few storms to organize and potentially\n   produce isolated damaging winds and marginally severe hail.\n   Convection over the Gulf Stream has produce outflow that is\n   approaching the eastern Peninsula coast. This could impact the\n   duration of the most intense activity, though a brief uptick in wind\n   gust potential is also possible as this boundary interacts with\n   ongoing storms.\n\n   ..Wendt/Smith.. 03/01/2026\n\n   ...Please see www.spc.noaa.gov for graphic product...\n\n   ATTN...WFO...MFL...KEY...\n\n   LAT...LON   25208029 25198059 25238072 25538078 26528043 26748020\n               26608009 25818010 25208029 \n\n   MOST PROBABLE PEAK WIND GUST...UP TO 60 MPH\n   MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN",
+      "affectedAreas": "South Florida\n\n   Concerning...Severe potential...Watch unlikely \n\n   Valid 011739Z - 011945Z\n\n   Probability of Watch Issuance...20 percent\n\n   SUMMARY...Scattered storms are possible primarily near and along the\n   South Florida coast this afternoon. Isolated damaging winds and\n   marginally severe hail are the expected hazards. A watch is not\n   expected.\n\n   DISCUSSION...Convection continues to increase near the South Florida\n   coast this afternoon as temperature are reaching the upper 70s to\n   low 80s F. Localized convergence along with modest mid-level ascent\n   appears to be the largest contributors to this activity. With time,\n   a more well-developed sea breeze will likely move inland and promote\n   additional development. Around 1500 J/kg MLCAPE and 30-35 kts of\n   effective shear will allow a few storms to organize and potentially\n   produce isolated damaging winds and marginally severe hail.\n   Convection over the Gulf Stream has produce outflow that is\n   approaching the eastern Peninsula coast. This could impact the\n   duration of the most intense activity, though a brief uptick in wind\n   gust potential is also possible as this boundary interacts with\n   ongoing storms.\n\n   ..Wendt/Smith.. 03/01/2026\n\n   ...Please see www.spc.noaa.gov for graphic product...\n\n   ATTN...WFO...MFL...KEY...\n\n   LAT...LON   25208029 25198059 25238072 25538078 26528043 26748020\n               26608009 25818010 25208029 \n\n   MOST PROBABLE PEAK WIND GUST...UP TO 60 MPH\n   MOST PROBABLE PEAK HAIL SIZE...UP TO 1.25 IN",
+      "states": [
+        "UP",
+        "TO",
+        "UP",
+        "TO",
+        "IN"
+      ],
+      "mentionsTornado": true,
+      "rawText": "\n\n   Mesoscale Discussion 0124\n   NWS Storm Prediction Center Norman OK\n   1139 AM CST Sun Mar 01 2026\n\n   Areas affected...South Florida\n\n   Concerning...Severe potential...Watch unlikely \n\n   Valid 011739Z - 011945Z\n\n   Probability of Watch Issuance...20 percent\n\n   SUMMARY...Scattered storms are possible primarily near and along the\n   South Florida coast this afternoon. Isolated damaging winds and\n   marginally severe hail are the expected hazards. A watch is not\n   expected.\n\n   DISCUSSION...Convection continues to increase near the South Florida\n   coast this afternoon as temperature are reaching the upper 70s to\n   low 80s F. Localized convergence along with modest mid-level ascent\n   appears to be the largest contributors to this activity. With time,\n   a more well-developed sea breeze will likely move inland and promote\n   additional development. Around 1500 J/kg MLCAPE and 30-35 kts of\n   effective shear will allow a few storms to organize and potentially\n   produce isolated "
+    }
+  ],
+  "oklahomaAffected": false,
+  "appIntegration": {
+    "importance": "MCDs are your BEST early warning tool - issued 1-3 hours before watches",
+    "alertThreshold": "Push notification when watch_probability >= 80%",
+    "pollingFrequency": "Check every 5-10 minutes during active weather"
+  }
+}
