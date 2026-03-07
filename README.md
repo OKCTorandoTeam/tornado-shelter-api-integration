@@ -109,7 +109,7 @@ The app uses a **Direct API approach** - calling weather APIs directly from the 
 ### 1. Clone the Repository
 
 ```bash
-git clone [YOUR_REPO_URL]
+git clone pull-weather-data.js
 cd tornado-shelter-api-integration
 ```
 
@@ -676,7 +676,7 @@ Create a `.env` file:
 OPENWEATHER_API_KEY=your_api_key_here
 
 # App Configuration
-APP_USER_AGENT=TornadoShelterApp/1.0 (team@email.com)
+APP_USER_AGENT=TornadoShelterApp/1.0 (okctornadoteam@email.com)
 DEFAULT_STATE=OK
 
 # Alert Thresholds (optional - can also be in code)
@@ -707,7 +707,7 @@ MCD_PUSH_THRESHOLD=80
 | GitHub Repo | [This repository] |
 | API Keys | Private team document |
 | Full API Docs | `docs/API_INTEGRATION_INFO.txt` |
-| Metrics Reference | `docs/tornado_app_data_resources_v2.docx` |
+| Metrics Reference | `tornado_app_data_resources.docx` |
 
 ## Additional Links
 
