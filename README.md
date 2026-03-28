@@ -250,7 +250,7 @@ The app uses a **Direct API approach** - calling weather APIs directly from the 
 ### 1. Clone the Repository
 
 ```bash
-git clone [YOUR_REPO_URL]
+git clone pull-weather-data.js
 cd tornado-shelter-api-integration
 ```
 
@@ -828,7 +828,7 @@ CAPE_MODERATE_THRESHOLD=1000
 MCD_PUSH_THRESHOLD=80
 ```
 
-⚠️ **IMPORTANT:** Never commit `.env` to git. It's already in `.gitignore`.
+⚠️ **IMPORTANT:** No commit `.env` to git. It is contained in `.gitignore`.
 
 ---
 
@@ -850,7 +850,7 @@ MCD_PUSH_THRESHOLD=80
 | GitHub Repo | [This repository] |
 | API Keys | Private team document |
 | Full API Docs | `docs/API_INTEGRATION_INFO.txt` |
-| Metrics Reference | `docs/tornado_app_data_resources_v2.docx` |
+| Metrics Reference | `tornado_app_data_resources.docx` |
 
 ## Additional Links
 
