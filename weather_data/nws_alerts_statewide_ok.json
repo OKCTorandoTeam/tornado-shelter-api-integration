@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "app": "Tornado Shelter Alert App",
+    "pulledAt": "2026-03-28T22:58:51.462Z"
+  },
+  "state": "OK",
+  "alertCount": 4,
+  "tornadoAlertCount": 0,
+  "alerts": [
+    {
+      "id": "urn:oid:2.49.0.1.840.0.eae901b0f4a8eb6e0f92238894475c91bbd683ad.001.1",
+      "event": "Red Flag Warning",
+      "headline": "Red Flag Warning issued March 28 at 12:43PM CDT until March 28 at 8:00PM CDT by NWS Amarillo TX",
+      "severity": "Severe",
+      "urgency": "Expected",
+      "certainty": "Likely",
+      "onset": "2026-03-28T12:43:00-05:00",
+      "expires": "2026-03-28T20:00:00-05:00",
+      "sender": "NWS Amarillo TX",
+      "area": "Cimarron; Texas; Beaver; Dallam; Sherman; Hansford; Ochiltree; Lipscomb",
+      "isTornadoRelated": false,
+      "instruction": "A Red Flag Warning means that critical fire weather conditions\nare either occurring now...or will shortly. A combination of\nstrong winds...low relative humidity...and warm temperatures will\ncreate favorable weather for rapid fire growth and spread. Avoid\nactivities that promote open flames and sparks."
+    },
+    {
+      "id": "urn:oid:2.49.0.1.840.0.238aff1b67ecff88ff883c5bc0590af2e2da4041.001.1",
+      "event": "Red Flag Warning",
+      "headline": "Red Flag Warning issued March 28 at 8:08AM CDT until March 28 at 7:00PM CDT by NWS Norman OK",
+      "severity": "Severe",
+      "urgency": "Expected",
+      "certainty": "Likely",
+      "onset": "2026-03-28T11:00:00-05:00",
+      "expires": "2026-03-28T19:00:00-05:00",
+      "sender": "NWS Norman OK",
+      "area": "Harper; Woods; Alfalfa; Ellis; Woodward; Major; Dewey",
+      "isTornadoRelated": false,
+      "instruction": "A Red Flag Warning means that critical fire weather conditions\nare either occurring now, or will shortly. A combination of\nstrong winds, low relative humidity, and warm temperatures will\ncontribute to extreme fire behavior."
+    },
+    {
+      "id": "urn:oid:2.49.0.1.840.0.03f7d466c406f639969f9b2e033442d938c008d2.001.1",
+      "event": "Special Weather Statement",
+      "headline": "Special Weather Statement issued March 28 at 12:48AM CDT by NWS Shreveport LA",
+      "severity": "Moderate",
+      "urgency": "Expected",
+      "certainty": "Observed",
+      "onset": "2026-03-28T00:48:00-05:00",
+      "expires": "2026-03-28T19:00:00-05:00",
+      "sender": "NWS Shreveport LA",
+      "area": "Sevier; Howard; Little River; Hempstead; Nevada; Miller; Lafayette; Columbia; Union; Caddo; Bossier; Webster; Claiborne; Lincoln; Union; De Soto; Red River; Bienville; Jackson; Ouachita; Sabine; Natchitoches; Winn; Grant; Caldwell; La Salle; McCurtain; Red River; Bowie; Franklin; Titus; Camp; Morris; Cass; Wood; Upshur; Marion; Smith; Gregg; Harrison; Cherokee; Rusk; Panola; Nacogdoches; Shelby; Angelina; San Augustine; Sabine",
+      "isTornadoRelated": false,
+      "instruction": null
+    },
+    {
+      "id": "urn:oid:2.49.0.1.840.0.df38d66732c922fb1c2b2cd608d39921abd9d823.001.1",
+      "event": "Special Weather Statement",
+      "headline": "Special Weather Statement issued March 27 at 1:44PM CDT by NWS Shreveport LA",
+      "severity": "Moderate",
+      "urgency": "Expected",
+      "certainty": "Observed",
+      "onset": "2026-03-27T13:44:00-05:00",
+      "expires": "2026-03-28T19:00:00-05:00",
+      "sender": "NWS Shreveport LA",
+      "area": "Sevier; Howard; Little River; Hempstead; Nevada; Miller; Lafayette; Columbia; Union; Caddo; Bossier; Webster; Claiborne; Lincoln; Union; De Soto; Red River; Bienville; Jackson; Ouachita; Sabine; Natchitoches; Winn; Grant; Caldwell; La Salle; McCurtain; Red River; Bowie; Franklin; Titus; Camp; Morris; Cass; Wood; Upshur; Marion; Smith; Gregg; Harrison; Cherokee; Rusk; Panola; Nacogdoches; Shelby; Angelina; San Augustine; Sabine",
+      "isTornadoRelated": false,
+      "instruction": null
+    }
+  ]
+}

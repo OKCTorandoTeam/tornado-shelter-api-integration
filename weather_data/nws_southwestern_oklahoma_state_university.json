@@ -1,0 +1,1111 @@
+{
+  "meta": {
+    "app": "Tornado Shelter Alert App",
+    "pipeline": "NWS Weather Data Pipeline (Node.js ESM)",
+    "pulledAt": "2026-03-28T22:59:31.718Z",
+    "nwsGridUpdate": "2026-03-28T18:27:14+00:00",
+    "nwsForecastGenerated": "2026-03-28T22:59:33+00:00"
+  },
+  "location": {
+    "name": "Southwestern Oklahoma State University",
+    "lat": 35.5384,
+    "lon": -98.6884,
+    "gridOffice": "OUN",
+    "gridX": 55,
+    "gridY": 98,
+    "nearestCity": "Weatherford",
+    "nearestState": "OK"
+  },
+  "factors": {
+    "pressure": {
+      "unit": "hPa",
+      "forecast24h": [],
+      "minHpa": null,
+      "maxHpa": null,
+      "rangeHpa": null,
+      "rapidDropDetected": false
+    },
+    "windSpeed": {
+      "unit": "mph",
+      "speedForecast24h": [
+        {
+          "validTime": "2026-03-28T12:00:00+00:00/PT1H",
+          "value_mph": 4.6
+        },
+        {
+          "validTime": "2026-03-28T13:00:00+00:00/PT1H",
+          "value_mph": 2.3
+        },
+        {
+          "validTime": "2026-03-28T14:00:00+00:00/PT1H",
+          "value_mph": 8.1
+        },
+        {
+          "validTime": "2026-03-28T15:00:00+00:00/PT1H",
+          "value_mph": 11.5
+        },
+        {
+          "validTime": "2026-03-28T16:00:00+00:00/PT1H",
+          "value_mph": 12.7
+        },
+        {
+          "validTime": "2026-03-28T17:00:00+00:00/PT1H",
+          "value_mph": 11.5
+        },
+        {
+          "validTime": "2026-03-28T18:00:00+00:00/PT1H",
+          "value_mph": 15
+        },
+        {
+          "validTime": "2026-03-28T19:00:00+00:00/PT1H",
+          "value_mph": 12.7
+        },
+        {
+          "validTime": "2026-03-28T20:00:00+00:00/PT1H",
+          "value_mph": 13.8
+        },
+        {
+          "validTime": "2026-03-28T21:00:00+00:00/PT1H",
+          "value_mph": 15
+        },
+        {
+          "validTime": "2026-03-28T22:00:00+00:00/PT3H",
+          "value_mph": 16.1
+        },
+        {
+          "validTime": "2026-03-29T01:00:00+00:00/PT1H",
+          "value_mph": 15
+        },
+        {
+          "validTime": "2026-03-29T02:00:00+00:00/PT1H",
+          "value_mph": 13.8
+        },
+        {
+          "validTime": "2026-03-29T03:00:00+00:00/PT1H",
+          "value_mph": 12.7
+        },
+        {
+          "validTime": "2026-03-29T04:00:00+00:00/PT1H",
+          "value_mph": 13.8
+        },
+        {
+          "validTime": "2026-03-29T05:00:00+00:00/PT2H",
+          "value_mph": 12.7
+        },
+        {
+          "validTime": "2026-03-29T07:00:00+00:00/PT3H",
+          "value_mph": 13.8
+        },
+        {
+          "validTime": "2026-03-29T10:00:00+00:00/PT1H",
+          "value_mph": 15
+        },
+        {
+          "validTime": "2026-03-29T11:00:00+00:00/PT2H",
+          "value_mph": 16.1
+        },
+        {
+          "validTime": "2026-03-29T13:00:00+00:00/PT1H",
+          "value_mph": 18.4
+        },
+        {
+          "validTime": "2026-03-29T14:00:00+00:00/PT1H",
+          "value_mph": 19.6
+        },
+        {
+          "validTime": "2026-03-29T15:00:00+00:00/PT1H",
+          "value_mph": 21.9
+        },
+        {
+          "validTime": "2026-03-29T16:00:00+00:00/PT2H",
+          "value_mph": 24.2
+        },
+        {
+          "validTime": "2026-03-29T18:00:00+00:00/PT4H",
+          "value_mph": 23
+        }
+      ],
+      "gustForecast24h": [
+        {
+          "validTime": "2026-03-28T12:00:00+00:00/PT1H",
+          "value_mph": 10.4
+        },
+        {
+          "validTime": "2026-03-28T13:00:00+00:00/PT1H",
+          "value_mph": 6.9
+        },
+        {
+          "validTime": "2026-03-28T14:00:00+00:00/PT1H",
+          "value_mph": 13.8
+        },
+        {
+          "validTime": "2026-03-28T15:00:00+00:00/PT2H",
+          "value_mph": 17.3
+        },
+        {
+          "validTime": "2026-03-28T17:00:00+00:00/PT1H",
+          "value_mph": 19.6
+        },
+        {
+          "validTime": "2026-03-28T18:00:00+00:00/PT1H",
+          "value_mph": 18.4
+        },
+        {
+          "validTime": "2026-03-28T19:00:00+00:00/PT1H",
+          "value_mph": 19.6
+        },
+        {
+          "validTime": "2026-03-28T20:00:00+00:00/PT1H",
+          "value_mph": 20.7
+        },
+        {
+          "validTime": "2026-03-28T21:00:00+00:00/PT1H",
+          "value_mph": 23
+        },
+        {
+          "validTime": "2026-03-28T22:00:00+00:00/PT3H",
+          "value_mph": 24.2
+        },
+        {
+          "validTime": "2026-03-29T01:00:00+00:00/PT1H",
+          "value_mph": 23
+        },
+        {
+          "validTime": "2026-03-29T02:00:00+00:00/PT1H",
+          "value_mph": 20.7
+        },
+        {
+          "validTime": "2026-03-29T03:00:00+00:00/PT1H",
+          "value_mph": 19.6
+        },
+        {
+          "validTime": "2026-03-29T04:00:00+00:00/PT1H",
+          "value_mph": 20.7
+        },
+        {
+          "validTime": "2026-03-29T05:00:00+00:00/PT2H",
+          "value_mph": 19.6
+        },
+        {
+          "validTime": "2026-03-29T07:00:00+00:00/PT3H",
+          "value_mph": 20.7
+        },
+        {
+          "validTime": "2026-03-29T10:00:00+00:00/PT1H",
+          "value_mph": 23
+        },
+        {
+          "validTime": "2026-03-29T11:00:00+00:00/PT2H",
+          "value_mph": 24.2
+        },
+        {
+          "validTime": "2026-03-29T13:00:00+00:00/PT1H",
+          "value_mph": 27.6
+        },
+        {
+          "validTime": "2026-03-29T14:00:00+00:00/PT1H",
+          "value_mph": 29.9
+        },
+        {
+          "validTime": "2026-03-29T15:00:00+00:00/PT1H",
+          "value_mph": 33.4
+        },
+        {
+          "validTime": "2026-03-29T16:00:00+00:00/PT2H",
+          "value_mph": 36.8
+        },
+        {
+          "validTime": "2026-03-29T18:00:00+00:00/PT4H",
+          "value_mph": 34.5
+        },
+        {
+          "validTime": "2026-03-29T22:00:00+00:00/PT1H",
+          "value_mph": 33.4
+        }
+      ],
+      "directionForecast24h": [
+        {
+          "validTime": "2026-03-28T12:00:00+00:00/PT2H",
+          "value_degrees": 60
+        },
+        {
+          "validTime": "2026-03-28T14:00:00+00:00/PT1H",
+          "value_degrees": 90
+        },
+        {
+          "validTime": "2026-03-28T15:00:00+00:00/PT1H",
+          "value_degrees": 120
+        },
+        {
+          "validTime": "2026-03-28T16:00:00+00:00/PT1H",
+          "value_degrees": 150
+        },
+        {
+          "validTime": "2026-03-28T17:00:00+00:00/PT2H",
+          "value_degrees": 170
+        },
+        {
+          "validTime": "2026-03-28T19:00:00+00:00/PT6H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-29T01:00:00+00:00/PT3H",
+          "value_degrees": 180
+        },
+        {
+          "validTime": "2026-03-29T04:00:00+00:00/PT6H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-29T10:00:00+00:00/PT6H",
+          "value_degrees": 200
+        },
+        {
+          "validTime": "2026-03-29T16:00:00+00:00/PT5H",
+          "value_degrees": 210
+        },
+        {
+          "validTime": "2026-03-29T21:00:00+00:00/PT3H",
+          "value_degrees": 200
+        },
+        {
+          "validTime": "2026-03-30T00:00:00+00:00/PT3H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-30T03:00:00+00:00/PT2H",
+          "value_degrees": 180
+        },
+        {
+          "validTime": "2026-03-30T05:00:00+00:00/PT3H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-30T08:00:00+00:00/PT12H",
+          "value_degrees": 200
+        },
+        {
+          "validTime": "2026-03-30T20:00:00+00:00/PT6H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-31T02:00:00+00:00/PT3H",
+          "value_degrees": 180
+        },
+        {
+          "validTime": "2026-03-31T05:00:00+00:00/PT3H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-31T08:00:00+00:00/PT3H",
+          "value_degrees": 200
+        },
+        {
+          "validTime": "2026-03-31T11:00:00+00:00/PT3H",
+          "value_degrees": 190
+        },
+        {
+          "validTime": "2026-03-31T14:00:00+00:00/PT2H",
+          "value_degrees": 200
+        },
+        {
+          "validTime": "2026-03-31T16:00:00+00:00/PT1H",
+          "value_degrees": 210
+        },
+        {
+          "validTime": "2026-03-31T17:00:00+00:00/PT3H",
+          "value_degrees": 220
+        },
+        {
+          "validTime": "2026-03-31T20:00:00+00:00/PT2H",
+          "value_degrees": 230
+        }
+      ],
+      "maxSpeedMph": 24.2,
+      "maxGustMph": 36.8,
+      "gustWarning": false,
+      "gustSevere": false
+    },
+    "precipitation": {
+      "probabilityUnit": "%",
+      "quantityUnit": "inches",
+      "probabilityForecast24h": [
+        {
+          "validTime": "2026-03-28T12:00:00+00:00/P2DT12H",
+          "value_pct": 0
+        },
+        {
+          "validTime": "2026-03-31T00:00:00+00:00/PT6H",
+          "value_pct": 2
+        },
+        {
+          "validTime": "2026-03-31T06:00:00+00:00/PT6H",
+          "value_pct": 3
+        },
+        {
+          "validTime": "2026-03-31T12:00:00+00:00/PT6H",
+          "value_pct": 2
+        },
+        {
+          "validTime": "2026-03-31T18:00:00+00:00/PT6H",
+          "value_pct": 26
+        },
+        {
+          "validTime": "2026-04-01T00:00:00+00:00/PT6H",
+          "value_pct": 33
+        },
+        {
+          "validTime": "2026-04-01T06:00:00+00:00/PT6H",
+          "value_pct": 27
+        },
+        {
+          "validTime": "2026-04-01T12:00:00+00:00/PT6H",
+          "value_pct": 19
+        },
+        {
+          "validTime": "2026-04-01T18:00:00+00:00/PT6H",
+          "value_pct": 17
+        },
+        {
+          "validTime": "2026-04-02T00:00:00+00:00/PT6H",
+          "value_pct": 27
+        },
+        {
+          "validTime": "2026-04-02T06:00:00+00:00/PT6H",
+          "value_pct": 42
+        },
+        {
+          "validTime": "2026-04-02T12:00:00+00:00/PT6H",
+          "value_pct": 29
+        },
+        {
+          "validTime": "2026-04-02T18:00:00+00:00/PT6H",
+          "value_pct": 12
+        },
+        {
+          "validTime": "2026-04-03T00:00:00+00:00/PT6H",
+          "value_pct": 10
+        },
+        {
+          "validTime": "2026-04-03T06:00:00+00:00/PT6H",
+          "value_pct": 9
+        },
+        {
+          "validTime": "2026-04-03T12:00:00+00:00/PT6H",
+          "value_pct": 8
+        },
+        {
+          "validTime": "2026-04-03T18:00:00+00:00/PT6H",
+          "value_pct": 19
+        },
+        {
+          "validTime": "2026-04-04T00:00:00+00:00/PT6H",
+          "value_pct": 35
+        },
+        {
+          "validTime": "2026-04-04T06:00:00+00:00/PT6H",
+          "value_pct": 33
+        },
+        {
+          "validTime": "2026-04-04T12:00:00+00:00/PT18H",
+          "value_pct": 21
+        }
+      ],
+      "quantityForecast24h": [
+        {
+          "validTime": "2026-03-28T12:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T13:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T14:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T15:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T16:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T17:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T18:00:00+00:00/PT1H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-28T19:00:00+00:00/PT5H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-29T00:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-29T06:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-29T12:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-29T18:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-30T00:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-30T06:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-30T12:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-30T18:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-31T00:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-31T06:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-31T12:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-03-31T18:00:00+00:00/PT6H",
+          "value_inches": 0.02
+        },
+        {
+          "validTime": "2026-04-01T00:00:00+00:00/PT6H",
+          "value_inches": 0.04
+        },
+        {
+          "validTime": "2026-04-01T06:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-04-01T12:00:00+00:00/PT6H",
+          "value_inches": 0
+        },
+        {
+          "validTime": "2026-04-01T18:00:00+00:00/PT6H",
+          "value_inches": 0
+        }
+      ],
+      "maxProbabilityPct": 42,
+      "elevated": false,
+      "high": false
+    },
+    "latestUpdate": {
+      "pipelinePullUtc": "2026-03-28T22:59:31.718Z",
+      "nwsGridUpdateUtc": "2026-03-28T18:27:14+00:00",
+      "nwsForecastGeneratedUtc": "2026-03-28T22:59:33+00:00",
+      "pipelinePullLocal": "Saturday, March 28, 2026 at 5:59:34 PM CDT"
+    }
+  },
+  "forecast": {
+    "source": "NWS /forecast (14-period)",
+    "generatedAt": "2026-03-28T22:59:33+00:00",
+    "periods": [
+      {
+        "number": 1,
+        "name": "This Afternoon",
+        "startTime": "2026-03-28T17:00:00-05:00",
+        "endTime": "2026-03-28T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 65,
+        "temperatureUnit": "F",
+        "windSpeed": "16 mph",
+        "windDirection": "S",
+        "shortForecast": "Sunny",
+        "detailedForecast": "Sunny, with a high near 65. South wind around 16 mph, with gusts as high as 24 mph.",
+        "probabilityOfPrecipitation": null
+      },
+      {
+        "number": 2,
+        "name": "Tonight",
+        "startTime": "2026-03-28T18:00:00-05:00",
+        "endTime": "2026-03-29T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 45,
+        "temperatureUnit": "F",
+        "windSpeed": "13 to 16 mph",
+        "windDirection": "S",
+        "shortForecast": "Mostly Clear",
+        "detailedForecast": "Mostly clear, with a low around 45. South wind 13 to 16 mph, with gusts as high as 24 mph.",
+        "probabilityOfPrecipitation": null
+      },
+      {
+        "number": 3,
+        "name": "Sunday",
+        "startTime": "2026-03-29T06:00:00-05:00",
+        "endTime": "2026-03-29T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 83,
+        "temperatureUnit": "F",
+        "windSpeed": "16 to 24 mph",
+        "windDirection": "SSW",
+        "shortForecast": "Sunny",
+        "detailedForecast": "Sunny, with a high near 83. South southwest wind 16 to 24 mph, with gusts as high as 37 mph.",
+        "probabilityOfPrecipitation": null
+      },
+      {
+        "number": 4,
+        "name": "Sunday Night",
+        "startTime": "2026-03-29T18:00:00-05:00",
+        "endTime": "2026-03-30T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 58,
+        "temperatureUnit": "F",
+        "windSpeed": "16 to 21 mph",
+        "windDirection": "SSW",
+        "shortForecast": "Mostly Clear",
+        "detailedForecast": "Mostly clear, with a low around 58. South southwest wind 16 to 21 mph, with gusts as high as 31 mph.",
+        "probabilityOfPrecipitation": null
+      },
+      {
+        "number": 5,
+        "name": "Monday",
+        "startTime": "2026-03-30T06:00:00-05:00",
+        "endTime": "2026-03-30T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 89,
+        "temperatureUnit": "F",
+        "windSpeed": "17 to 25 mph",
+        "windDirection": "SSW",
+        "shortForecast": "Sunny",
+        "detailedForecast": "Sunny, with a high near 89. South southwest wind 17 to 25 mph, with gusts as high as 38 mph.",
+        "probabilityOfPrecipitation": null
+      },
+      {
+        "number": 6,
+        "name": "Monday Night",
+        "startTime": "2026-03-30T18:00:00-05:00",
+        "endTime": "2026-03-31T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 62,
+        "temperatureUnit": "F",
+        "windSpeed": "23 mph",
+        "windDirection": "S",
+        "shortForecast": "Partly Cloudy",
+        "detailedForecast": "Partly cloudy, with a low around 62.",
+        "probabilityOfPrecipitation": 3
+      },
+      {
+        "number": 7,
+        "name": "Tuesday",
+        "startTime": "2026-03-31T06:00:00-05:00",
+        "endTime": "2026-03-31T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 85,
+        "temperatureUnit": "F",
+        "windSpeed": "20 to 23 mph",
+        "windDirection": "SW",
+        "shortForecast": "Partly Sunny then Chance Showers And Thunderstorms",
+        "detailedForecast": "A chance of showers and thunderstorms after 1pm. Partly sunny, with a high near 85. Chance of precipitation is 30%.",
+        "probabilityOfPrecipitation": 26
+      },
+      {
+        "number": 8,
+        "name": "Tuesday Night",
+        "startTime": "2026-03-31T18:00:00-05:00",
+        "endTime": "2026-04-01T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 44,
+        "temperatureUnit": "F",
+        "windSpeed": "22 mph",
+        "windDirection": "N",
+        "shortForecast": "Chance Showers And Thunderstorms",
+        "detailedForecast": "A chance of showers and thunderstorms before 7pm, then a chance of showers and thunderstorms. Mostly cloudy, with a low around 44. Chance of precipitation is 30%.",
+        "probabilityOfPrecipitation": 33
+      },
+      {
+        "number": 9,
+        "name": "Wednesday",
+        "startTime": "2026-04-01T06:00:00-05:00",
+        "endTime": "2026-04-01T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 62,
+        "temperatureUnit": "F",
+        "windSpeed": "14 to 21 mph",
+        "windDirection": "NE",
+        "shortForecast": "Chance Showers And Thunderstorms then Slight Chance Showers And Thunderstorms",
+        "detailedForecast": "A chance of showers and thunderstorms before 7am, then a slight chance of showers and thunderstorms between 7am and 1pm, then a chance of showers and thunderstorms. Mostly cloudy, with a high near 62. Chance of precipitation is 30%.",
+        "probabilityOfPrecipitation": 27
+      },
+      {
+        "number": 10,
+        "name": "Wednesday Night",
+        "startTime": "2026-04-01T18:00:00-05:00",
+        "endTime": "2026-04-02T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 42,
+        "temperatureUnit": "F",
+        "windSpeed": "8 to 14 mph",
+        "windDirection": "NE",
+        "shortForecast": "Chance Showers And Thunderstorms",
+        "detailedForecast": "A chance of showers and thunderstorms. Mostly cloudy, with a low around 42. Chance of precipitation is 40%.",
+        "probabilityOfPrecipitation": 42
+      },
+      {
+        "number": 11,
+        "name": "Thursday",
+        "startTime": "2026-04-02T06:00:00-05:00",
+        "endTime": "2026-04-02T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 69,
+        "temperatureUnit": "F",
+        "windSpeed": "8 to 12 mph",
+        "windDirection": "ENE",
+        "shortForecast": "Chance Rain Showers",
+        "detailedForecast": "A chance of rain showers before 1pm. Mostly cloudy, with a high near 69. Chance of precipitation is 40%.",
+        "probabilityOfPrecipitation": 42
+      },
+      {
+        "number": 12,
+        "name": "Thursday Night",
+        "startTime": "2026-04-02T18:00:00-05:00",
+        "endTime": "2026-04-03T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 51,
+        "temperatureUnit": "F",
+        "windSpeed": "14 mph",
+        "windDirection": "SE",
+        "shortForecast": "Chance Rain Showers",
+        "detailedForecast": "A chance of rain showers after 7pm. Partly cloudy, with a low around 51.",
+        "probabilityOfPrecipitation": 12
+      },
+      {
+        "number": 13,
+        "name": "Friday",
+        "startTime": "2026-04-03T06:00:00-05:00",
+        "endTime": "2026-04-03T18:00:00-05:00",
+        "isDaytime": true,
+        "temperature": 81,
+        "temperatureUnit": "F",
+        "windSpeed": "14 to 23 mph",
+        "windDirection": "S",
+        "shortForecast": "Chance Rain Showers then Slight Chance Showers And Thunderstorms",
+        "detailedForecast": "A chance of rain showers before 7am, then a slight chance of showers and thunderstorms. Partly sunny, with a high near 81. Chance of precipitation is 20%.",
+        "probabilityOfPrecipitation": 19
+      },
+      {
+        "number": 14,
+        "name": "Friday Night",
+        "startTime": "2026-04-03T18:00:00-05:00",
+        "endTime": "2026-04-04T06:00:00-05:00",
+        "isDaytime": false,
+        "temperature": 47,
+        "temperatureUnit": "F",
+        "windSpeed": "22 mph",
+        "windDirection": "ENE",
+        "shortForecast": "Chance Showers And Thunderstorms",
+        "detailedForecast": "A chance of showers and thunderstorms. Partly cloudy, with a low around 47.",
+        "probabilityOfPrecipitation": 35
+      }
+    ]
+  },
+  "supportingMetrics": {
+    "temperature": [
+      {
+        "validTime": "2026-03-28T12:00:00+00:00/PT1H",
+        "value_f": 41
+      },
+      {
+        "validTime": "2026-03-28T13:00:00+00:00/PT1H",
+        "value_f": 40
+      },
+      {
+        "validTime": "2026-03-28T14:00:00+00:00/PT1H",
+        "value_f": 46
+      },
+      {
+        "validTime": "2026-03-28T15:00:00+00:00/PT1H",
+        "value_f": 49
+      },
+      {
+        "validTime": "2026-03-28T16:00:00+00:00/PT1H",
+        "value_f": 53
+      },
+      {
+        "validTime": "2026-03-28T17:00:00+00:00/PT1H",
+        "value_f": 56
+      },
+      {
+        "validTime": "2026-03-28T18:00:00+00:00/PT1H",
+        "value_f": 58
+      },
+      {
+        "validTime": "2026-03-28T19:00:00+00:00/PT1H",
+        "value_f": 64
+      },
+      {
+        "validTime": "2026-03-28T20:00:00+00:00/PT3H",
+        "value_f": 65
+      },
+      {
+        "validTime": "2026-03-28T23:00:00+00:00/PT1H",
+        "value_f": 64
+      },
+      {
+        "validTime": "2026-03-29T00:00:00+00:00/PT1H",
+        "value_f": 63
+      },
+      {
+        "validTime": "2026-03-29T01:00:00+00:00/PT1H",
+        "value_f": 59
+      },
+      {
+        "validTime": "2026-03-29T02:00:00+00:00/PT1H",
+        "value_f": 55
+      },
+      {
+        "validTime": "2026-03-29T03:00:00+00:00/PT1H",
+        "value_f": 53
+      },
+      {
+        "validTime": "2026-03-29T04:00:00+00:00/PT1H",
+        "value_f": 52
+      },
+      {
+        "validTime": "2026-03-29T05:00:00+00:00/PT2H",
+        "value_f": 50
+      },
+      {
+        "validTime": "2026-03-29T07:00:00+00:00/PT2H",
+        "value_f": 48
+      },
+      {
+        "validTime": "2026-03-29T09:00:00+00:00/PT3H",
+        "value_f": 47
+      },
+      {
+        "validTime": "2026-03-29T12:00:00+00:00/PT1H",
+        "value_f": 46
+      },
+      {
+        "validTime": "2026-03-29T13:00:00+00:00/PT1H",
+        "value_f": 47
+      },
+      {
+        "validTime": "2026-03-29T14:00:00+00:00/PT1H",
+        "value_f": 50
+      },
+      {
+        "validTime": "2026-03-29T15:00:00+00:00/PT1H",
+        "value_f": 57
+      },
+      {
+        "validTime": "2026-03-29T16:00:00+00:00/PT1H",
+        "value_f": 63
+      },
+      {
+        "validTime": "2026-03-29T17:00:00+00:00/PT1H",
+        "value_f": 68
+      }
+    ],
+    "dewpoint": [
+      {
+        "validTime": "2026-03-28T12:00:00+00:00/PT1H",
+        "value_f": 15
+      },
+      {
+        "validTime": "2026-03-28T13:00:00+00:00/PT2H",
+        "value_f": 17
+      },
+      {
+        "validTime": "2026-03-28T15:00:00+00:00/PT1H",
+        "value_f": 20
+      },
+      {
+        "validTime": "2026-03-28T16:00:00+00:00/PT1H",
+        "value_f": 23
+      },
+      {
+        "validTime": "2026-03-28T17:00:00+00:00/PT2H",
+        "value_f": 26
+      },
+      {
+        "validTime": "2026-03-28T19:00:00+00:00/PT1H",
+        "value_f": 28
+      },
+      {
+        "validTime": "2026-03-28T20:00:00+00:00/PT1H",
+        "value_f": 30
+      },
+      {
+        "validTime": "2026-03-28T21:00:00+00:00/PT1H",
+        "value_f": 32
+      },
+      {
+        "validTime": "2026-03-28T22:00:00+00:00/PT2H",
+        "value_f": 34
+      },
+      {
+        "validTime": "2026-03-29T00:00:00+00:00/PT1H",
+        "value_f": 35
+      },
+      {
+        "validTime": "2026-03-29T01:00:00+00:00/PT1H",
+        "value_f": 36
+      },
+      {
+        "validTime": "2026-03-29T02:00:00+00:00/PT2H",
+        "value_f": 37
+      },
+      {
+        "validTime": "2026-03-29T04:00:00+00:00/PT2H",
+        "value_f": 38
+      },
+      {
+        "validTime": "2026-03-29T06:00:00+00:00/PT1H",
+        "value_f": 39
+      },
+      {
+        "validTime": "2026-03-29T07:00:00+00:00/PT3H",
+        "value_f": 41
+      },
+      {
+        "validTime": "2026-03-29T10:00:00+00:00/PT1H",
+        "value_f": 42
+      },
+      {
+        "validTime": "2026-03-29T11:00:00+00:00/PT2H",
+        "value_f": 43
+      },
+      {
+        "validTime": "2026-03-29T13:00:00+00:00/PT1H",
+        "value_f": 44
+      },
+      {
+        "validTime": "2026-03-29T14:00:00+00:00/PT1H",
+        "value_f": 45
+      },
+      {
+        "validTime": "2026-03-29T15:00:00+00:00/PT1H",
+        "value_f": 46
+      },
+      {
+        "validTime": "2026-03-29T16:00:00+00:00/PT2H",
+        "value_f": 47
+      },
+      {
+        "validTime": "2026-03-29T18:00:00+00:00/PT1H",
+        "value_f": 48
+      },
+      {
+        "validTime": "2026-03-29T19:00:00+00:00/PT6H",
+        "value_f": 47
+      },
+      {
+        "validTime": "2026-03-30T01:00:00+00:00/PT1H",
+        "value_f": 48
+      }
+    ],
+    "humidity": [
+      {
+        "validTime": "2026-03-28T12:00:00+00:00/PT1H",
+        "value_pct": 34
+      },
+      {
+        "validTime": "2026-03-28T13:00:00+00:00/PT1H",
+        "value_pct": 39
+      },
+      {
+        "validTime": "2026-03-28T14:00:00+00:00/PT4H",
+        "value_pct": 31
+      },
+      {
+        "validTime": "2026-03-28T18:00:00+00:00/PT1H",
+        "value_pct": 29
+      },
+      {
+        "validTime": "2026-03-28T19:00:00+00:00/PT1H",
+        "value_pct": 25
+      },
+      {
+        "validTime": "2026-03-28T20:00:00+00:00/PT1H",
+        "value_pct": 27
+      },
+      {
+        "validTime": "2026-03-28T21:00:00+00:00/PT1H",
+        "value_pct": 29
+      },
+      {
+        "validTime": "2026-03-28T22:00:00+00:00/PT1H",
+        "value_pct": 31
+      },
+      {
+        "validTime": "2026-03-28T23:00:00+00:00/PT1H",
+        "value_pct": 33
+      },
+      {
+        "validTime": "2026-03-29T00:00:00+00:00/PT1H",
+        "value_pct": 35
+      },
+      {
+        "validTime": "2026-03-29T01:00:00+00:00/PT1H",
+        "value_pct": 42
+      },
+      {
+        "validTime": "2026-03-29T02:00:00+00:00/PT1H",
+        "value_pct": 51
+      },
+      {
+        "validTime": "2026-03-29T03:00:00+00:00/PT1H",
+        "value_pct": 54
+      },
+      {
+        "validTime": "2026-03-29T04:00:00+00:00/PT1H",
+        "value_pct": 59
+      },
+      {
+        "validTime": "2026-03-29T05:00:00+00:00/PT1H",
+        "value_pct": 63
+      },
+      {
+        "validTime": "2026-03-29T06:00:00+00:00/PT1H",
+        "value_pct": 66
+      },
+      {
+        "validTime": "2026-03-29T07:00:00+00:00/PT2H",
+        "value_pct": 77
+      },
+      {
+        "validTime": "2026-03-29T09:00:00+00:00/PT1H",
+        "value_pct": 79
+      },
+      {
+        "validTime": "2026-03-29T10:00:00+00:00/PT1H",
+        "value_pct": 83
+      },
+      {
+        "validTime": "2026-03-29T11:00:00+00:00/PT1H",
+        "value_pct": 86
+      },
+      {
+        "validTime": "2026-03-29T12:00:00+00:00/PT2H",
+        "value_pct": 89
+      },
+      {
+        "validTime": "2026-03-29T14:00:00+00:00/PT1H",
+        "value_pct": 83
+      },
+      {
+        "validTime": "2026-03-29T15:00:00+00:00/PT1H",
+        "value_pct": 67
+      },
+      {
+        "validTime": "2026-03-29T16:00:00+00:00/PT1H",
+        "value_pct": 56
+      }
+    ],
+    "thunderProbability": [
+      {
+        "validTime": "2026-03-28T12:00:00+00:00/P2DT12H",
+        "value_pct": 0
+      },
+      {
+        "validTime": "2026-03-31T00:00:00+00:00/PT6H",
+        "value_pct": 2
+      },
+      {
+        "validTime": "2026-03-31T06:00:00+00:00/PT6H",
+        "value_pct": 3
+      },
+      {
+        "validTime": "2026-03-31T12:00:00+00:00/PT6H",
+        "value_pct": 2
+      },
+      {
+        "validTime": "2026-03-31T18:00:00+00:00/PT6H",
+        "value_pct": 25
+      },
+      {
+        "validTime": "2026-04-01T00:00:00+00:00/PT6H",
+        "value_pct": 24
+      },
+      {
+        "validTime": "2026-04-01T06:00:00+00:00/PT12H",
+        "value_pct": 17
+      },
+      {
+        "validTime": "2026-04-01T18:00:00+00:00/PT6H",
+        "value_pct": 16
+      },
+      {
+        "validTime": "2026-04-02T00:00:00+00:00/PT6H",
+        "value_pct": 15
+      },
+      {
+        "validTime": "2026-04-02T06:00:00+00:00/PT6H",
+        "value_pct": 10
+      },
+      {
+        "validTime": "2026-04-02T12:00:00+00:00/PT6H",
+        "value_pct": 7
+      },
+      {
+        "validTime": "2026-04-02T18:00:00+00:00/PT12H",
+        "value_pct": 10
+      },
+      {
+        "validTime": "2026-04-03T06:00:00+00:00/PT6H",
+        "value_pct": 9
+      },
+      {
+        "validTime": "2026-04-03T12:00:00+00:00/PT6H",
+        "value_pct": 8
+      },
+      {
+        "validTime": "2026-04-03T18:00:00+00:00/PT6H",
+        "value_pct": 19
+      },
+      {
+        "validTime": "2026-04-04T00:00:00+00:00/PT6H",
+        "value_pct": 28
+      },
+      {
+        "validTime": "2026-04-04T06:00:00+00:00/PT6H",
+        "value_pct": 1
+      },
+      {
+        "validTime": "2026-04-04T12:00:00+00:00/PT6H",
+        "value_pct": 0
+      },
+      {
+        "validTime": "2026-04-04T18:00:00+00:00/PT7H",
+        "value_pct": 1
+      }
+    ],
+    "maxThunderProbPct": 28
+  },
+  "alerts": {
+    "total": 0,
+    "tornadoRelated": 0,
+    "items": []
+  },
+  "severitySummary": {
+    "threatLevel": "NONE",
+    "reasons": [
+      "No significant weather threats detected"
+    ]
+  }
+}

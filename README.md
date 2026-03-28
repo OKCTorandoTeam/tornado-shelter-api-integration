@@ -8,6 +8,7 @@ Weather API integration files for the Tornado Shelter Alert App, designed to hel
 
 - [Overview](#overview)
 - [Current Status](#current-status)
+- [NWS Optimized Pipeline (NEW)](#nws-optimized-pipeline-new)
 - [Architecture](#architecture)
 - [Quick Start](#quick-start)
 - [Project Structure](#project-structure)
@@ -51,6 +52,146 @@ This repository contains all the weather API integration code for the Tornado Sh
 | **Open-Meteo API** | ✅ **NEW** | CAPE, Lifted Index, CIN (16-day) |
 | **SPC Convective Outlook** | ✅ **NEW** | Tornado probability zones |
 | **SPC Mesoscale Discussions** | ✅ **NEW** | Pre-watch early warnings |
+| **NWS Optimized Pipeline** | ✅ **NEW** | Pressure, wind, precip, alerts (15 locations) |
+
+---
+
+## NWS Optimized Pipeline (NEW)
+
+An optimized data pipeline focused exclusively on the NWS API was added to streamline weather data pulls for the mobile app back-end. After reviewing all available API endpoints with the NWS database, these NWS API endpoints was selected as the primary source for real-time weather metrics because it is completely free, requires no API key (only a User-Agent header), and provides the core factors needed for tornado shelter alerting.
+
+### Why a Separate Pipeline?
+
+The original `pull-weather-data.js` script pulls from 7+ API sources (NWS, SPC, FEMA, Open-Meteo, OpenWeather) and generates 15 JSON files. That script remains in the repo and is still used for comprehensive data pulls. 
+
+The new optimized pipeline `pull-weather-data-esm.js` script narrows the focus to NWS-only data and produces a single consolidated JSON file per location, which will replace the Meteomatics API for what the mobile app database consumes.
+
+### Data Sources
+
+The optimized pipeline pulls from three NWS endpoints per location, plus one statewide query:
+
+| Endpoint | URL Pattern | What It Provides |
+|----------|-------------|------------------|
+| Point Metadata | `api.weather.gov/points/{lat},{lon}` | Resolves coordinates to a forecast grid office |
+| Raw Grid Forecast | `api.weather.gov/gridpoints/{office}/{x},{y}` | Hourly pressure, wind speed, gusts, precipitation |
+| 14-Period Forecast | `api.weather.gov/gridpoints/{office}/{x},{y}/forecast` | Human-readable forecast summaries |
+| Active Alerts (point) | `api.weather.gov/alerts/active?point={lat},{lon}` | Tornado warnings and severe weather alerts for a location |
+| Active Alerts (state) | `api.weather.gov/alerts/active?area=OK` | All active alerts across Oklahoma |
+
+### Four Optimized Factors
+
+Each location's consolidated JSON output is organized around these four factors:
+
+| Factor | Source | Unit | What It Measures |
+|--------|--------|------|------------------|
+| **Pressure** | Raw Grid (`pressure`) | hPa | Barometric pressure, rapid drops signal approaching storms |
+| **Wind Speed** | Raw Grid (`windSpeed`, `windGust`) | mph | Sustained wind and gust forecasts |
+| **Precipitation** | Raw Grid (`probabilityOfPrecipitation`, `quantitativePrecipitation`) | %, inches | Chance and expected amount of rainfall |
+| **Latest Update** | Pipeline timestamp + NWS `updateTime` | ISO 8601 | When data was pulled and when NWS last updated the grid |
+
+### Authentication
+
+The NWS API does not require an API key. It authenticates via a `User-Agent` header, which identifies your application and provides a contact email so NWS can reach out if there are usage concerns.
+
+```
+User-Agent: TornadoShelterApp/1.0 (okctornadoteam@gmail.com)
+Accept: application/geo+json
+```
+
+**Important:** The email is only visible to NWS operations staff and is not public when in production use.
+
+### Module Format (ES Modules)
+
+Both new files use ES Module syntax (`import`/`export`) because the project's `package.json` has `"type": "module"`. This means Node.js treats all `.js` files in the project as ES Modules. If you see a `ReferenceError: module is not defined` error, it means a file is using CommonJS (`require`/`module.exports`) syntax, which is not compatible with the `"type": "module"` setting.
+
+### New Files
+
+| File | Purpose |
+|------|---------|
+| `scripts/pull-weather-data-esm.js` | **Updated**, NWS-optimized pipeline (replaces the original data pull for the mobile app back-end) |
+| `scripts/ok-locations-config.js` | **New**, 15 Oklahoma university and high-risk locations with coordinates, tornado risk metadata, and helper functions |
+
+### Locations Configuration
+
+The pipeline uses a dedicated locations config file with 15 locations across Oklahoma, covering major public university campuses and critical tornado corridor zones. Locations are categorized by tornado risk zone based on historical NWS data.
+
+| # | Location | City | Lat | Lon | Risk Zone |
+|---|----------|------|-----|-----|-----------|
+| 1 | University of Oklahoma | Norman | 35.2059 | -97.4457 | EXTREME |
+| 2 | University of Central Oklahoma | Edmond | 35.6550 | -97.4698 | EXTREME |
+| 3 | OU Health Sciences Center | Oklahoma City | 35.4818 | -97.4956 | EXTREME |
+| 4 | Moore (OKC Metro) | Moore | 35.3395 | -97.4867 | EXTREME |
+| 5 | Midwest City (Tinker AFB) | Midwest City | 35.4495 | -97.3967 | EXTREME |
+| 6 | Langston University | Langston | 35.9448 | -97.2612 | HIGH |
+| 7 | Oklahoma State University | Stillwater | 36.1260 | -97.0752 | HIGH |
+| 8 | Northwestern Oklahoma State | Alva | 36.8050 | -98.6665 | HIGH |
+| 9 | University of Tulsa | Tulsa | 36.1514 | -95.9460 | HIGH |
+| 10 | OSU-Tulsa | Tulsa | 36.1520 | -95.9453 | HIGH |
+| 11 | Cameron University | Lawton | 34.6087 | -98.4345 | HIGH |
+| 12 | Southwestern Oklahoma State | Weatherford | 35.5384 | -98.6884 | HIGH |
+| 13 | Northeastern State University | Tahlequah | 35.9205 | -94.9671 | MODERATE |
+| 14 | East Central University | Ada | 34.7746 | -96.6783 | MODERATE |
+| 15 | Southeastern Oklahoma State | Durant | 33.9943 | -96.3926 | MODERATE |
+
+### Running the Optimized Pipeline
+
+```bash
+# Run with all 15 default locations
+node scripts/pull-weather-data-esm.js
+
+# Override with custom locations
+node scripts/pull-weather-data-esm.js --locations "Norman,35.2226,-97.4395;Edmond,35.6528,-97.4781"
+
+# Custom output directory
+node scripts/pull-weather-data-esm.js --output ./demo_data
+```
+
+### Output Structure
+
+The pipeline generates one JSON file per location (e.g., `nws_university_of_oklahoma.json`), one statewide alerts file (`nws_alerts_statewide_ok.json`), and one combined summary (`nws_summary.json`). Each location file is organized as:
+
+```json
+{
+  "meta": {
+    "app": "Tornado Shelter Alert App",
+    "pipeline": "NWS Weather Data Pipeline (Node.js ESM)",
+    "pulledAt": "2026-03-28T...",
+    "nwsGridUpdate": "2026-03-28T...",
+    "nwsForecastGenerated": "2026-03-28T..."
+  },
+  "location": { "name": "...", "lat": 0, "lon": 0, "gridOffice": "...", "gridX": 0, "gridY": 0 },
+  "factors": {
+    "pressure":      { "unit": "hPa", "forecast24h": [...], "rapidDropDetected": false },
+    "windSpeed":     { "unit": "mph", "speedForecast24h": [...], "gustSevere": false },
+    "precipitation": { "probabilityUnit": "%", "quantityUnit": "inches", "elevated": false },
+    "latestUpdate":  { "pipelinePullUtc": "...", "nwsGridUpdateUtc": "...", "pipelinePullLocal": "..." }
+  },
+  "forecast": { "source": "NWS /forecast (14-period)", "periods": [...] },
+  "alerts": { "total": 0, "tornadoRelated": 0, "items": [...] },
+  "severitySummary": { "threatLevel": "NONE", "reasons": [...] }
+}
+```
+
+### Using the Locations Config in Your Code
+
+```javascript
+// Import specific helpers
+import { LOCATIONS, getByRiskZone, getByMetro } from './scripts/ok-locations-config.js';
+
+// All 15 locations
+console.log(LOCATIONS.length); // 15
+
+// Filter by tornado risk zone
+const extreme = getByRiskZone('EXTREME'); // 5 locations
+const high = getByRiskZone('HIGH');       // 7 locations
+
+// Filter by metro area
+const okcMetro = getByMetro('Oklahoma City'); // 5 locations
+
+// Universities only (excludes Moore and Midwest City)
+import { getUniversitiesOnly } from './scripts/ok-locations-config.js';
+const universities = getUniversitiesOnly(); // 13 locations
+```
 
 ---
 
@@ -66,7 +207,7 @@ The app uses a **Direct API approach** - calling weather APIs directly from the 
           │
           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                    WEATHER DATA SOURCES                      │
+│                    WEATHER DATA SOURCES                     │
 ├──────────────┬──────────────┬──────────────┬────────────────┤
 │   NWS API    │  Open-Meteo  │  SPC APIs    │  OpenWeather   │
 │  (Alerts)    │  (CAPE/LI)   │  (Outlooks)  │  (Current Wx)  │
@@ -75,13 +216,13 @@ The app uses a **Direct API approach** - calling weather APIs directly from the 
           │
           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                 THREAT LEVEL CALCULATION                     │
+│                 THREAT LEVEL CALCULATION                    │
 │  Inputs: NWS Warnings + CAPE + SPC Risk + MCD Watch Prob    │
 └─────────────────────────────────────────────────────────────┘
           │
           ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      USER INTERFACE                          │
+│                      USER INTERFACE                         │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────┐  │
 │  │Alert Banner │  │ Shelter Map │  │ 16-Day Risk Outlook │  │
 │  └─────────────┘  └─────────────┘  └─────────────────────┘  │
@@ -139,7 +280,7 @@ You should see all 7 tests pass with color-coded output.
 ### 5. Pull Weather Data
 
 ```bash
-node scripts/pull-weather-data.js
+node scripts/pull-weather-data-esm.js
 ```
 
 This generates 15 JSON files with current and predictive weather data.
@@ -163,7 +304,9 @@ tornado-shelter-api-integration/
 │
 ├── scripts/                            # Utility Scripts
 │   ├── test-weather-apis.js            # Tests all 7 APIs
-│   └── pull-weather-data.js            # Pulls all weather data (15 files)
+│   ├── pull-weather-data.js            # NWS-optimized pipeline (NEW - replaces original for mobile back-end)
+│   ├── locations-config.js             # 15 Oklahoma locations with risk metadata (NEW)
+│   └── pull-weather-data-original.js   # Original multi-API data pull (7 sources, 15 files)
 │
 ├── sample-api-responses/               # Sample JSON outputs
 │   ├── README.md                       # Sample file documentation
@@ -202,7 +345,7 @@ GET https://api.weather.gov/alerts/active?area=OK
 
 **Headers Required:**
 ```
-User-Agent: TornadoShelterApp/1.0 (team@email.com)
+User-Agent: TornadoShelterApp/1.0 (okctornadoteam@gmail.com)
 Accept: application/geo+json
 ```
 
@@ -641,7 +784,7 @@ Generates 15 JSON files including predictive forecasts.
              │
              ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    FETCH ALL DATA IN PARALLEL                        │
+│                    FETCH ALL DATA IN PARALLEL                       │
 │  ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌───────────┐ ┌────────┐ │
 │  │NWS Alerts │ │Open-Meteo │ │SPC Outlook│ │ SPC MCDs  │ │  FEMA  │ │
 │  │(Warnings) │ │(CAPE/LI)  │ │(Risk Zone)│ │(Pre-Watch)│ │Shelters│ │
@@ -650,14 +793,14 @@ Generates 15 JSON files including predictive forecasts.
              │
              ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                    CALCULATE THREAT LEVEL                            │
-│  Inputs: NWS Warning + CAPE Value + SPC Risk + MCD Watch Prob        │
+│                    CALCULATE THREAT LEVEL                           │
+│  Inputs: NWS Warning + CAPE Value + SPC Risk + MCD Watch Prob       │
 │  Output: EXTREME → HIGH → ELEVATED → MODERATE → LOW → NONE          │
 └─────────────────────────────────────────────────────────────────────┘
              │
              ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│                        DISPLAY TO USER                               │
+│                        DISPLAY TO USER                              │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐ │
 │  │Alert Banner │  │ Shelter Map │  │16-Day CAPE  │  │High-Risk    │ │
 │  │(Risk Level) │  │ (Nearest)   │  │  Forecast   │  │  Days       │ │
@@ -676,7 +819,7 @@ Create a `.env` file:
 OPENWEATHER_API_KEY=your_api_key_here
 
 # App Configuration
-APP_USER_AGENT=TornadoShelterApp/1.0 (team@email.com)
+APP_USER_AGENT=TornadoShelterApp/1.0 (okctornadoteam@gmail.com)
 DEFAULT_STATE=OK
 
 # Alert Thresholds (optional - can also be in code)
@@ -719,4 +862,4 @@ MCD_PUSH_THRESHOLD=80
 
 ---
 
-*Last Updated: March 2026*
+*Last Updated: March 28, 2026*

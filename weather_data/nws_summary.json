@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "app": "Tornado Shelter Alert App",
+    "pipeline": "NWS Weather Data Pipeline (Node.js ESM)",
+    "pulledAt": "2026-03-28T22:58:51.462Z",
+    "locationCount": 15
+  },
+  "statewideAlerts": {
+    "state": "OK",
+    "total": 4,
+    "tornadoRelated": 0
+  },
+  "locations": [
+    {
+      "name": "University of Oklahoma",
+      "lat": 35.2059,
+      "lon": -97.4457,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 56%"
+      ],
+      "maxWindGustMph": 36.8,
+      "maxPrecipProbPct": 56,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "University of Central Oklahoma",
+      "lat": 35.655,
+      "lon": -97.4698,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 55%"
+      ],
+      "maxWindGustMph": 31.1,
+      "maxPrecipProbPct": 55,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "OU Health Sciences Center",
+      "lat": 35.4818,
+      "lon": -97.4956,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 56%"
+      ],
+      "maxWindGustMph": 34.5,
+      "maxPrecipProbPct": 56,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Langston University",
+      "lat": 35.9448,
+      "lon": -97.2612,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 52%"
+      ],
+      "maxWindGustMph": 31.1,
+      "maxPrecipProbPct": 52,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Oklahoma State University",
+      "lat": 36.126,
+      "lon": -97.0752,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 53%"
+      ],
+      "maxWindGustMph": 31.1,
+      "maxPrecipProbPct": 53,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Northwestern Oklahoma State University",
+      "lat": 36.805,
+      "lon": -98.6665,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 51%",
+        "1 non-tornado alert(s) active"
+      ],
+      "maxWindGustMph": 33.4,
+      "maxPrecipProbPct": 51,
+      "pressureRangeHpa": null,
+      "alertCount": 1,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "University of Tulsa",
+      "lat": 36.1514,
+      "lon": -95.946,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 74%"
+      ],
+      "maxWindGustMph": 31.1,
+      "maxPrecipProbPct": 74,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "OSU-Tulsa",
+      "lat": 36.152,
+      "lon": -95.9453,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 74%"
+      ],
+      "maxWindGustMph": 31.1,
+      "maxPrecipProbPct": 74,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Northeastern State University",
+      "lat": 35.9205,
+      "lon": -94.9671,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 77%"
+      ],
+      "maxWindGustMph": 25.3,
+      "maxPrecipProbPct": 77,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Cameron University",
+      "lat": 34.6087,
+      "lon": -98.4345,
+      "threatLevel": "NONE",
+      "reasons": [
+        "No significant weather threats detected"
+      ],
+      "maxWindGustMph": 31.1,
+      "maxPrecipProbPct": 46,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Southwestern Oklahoma State University",
+      "lat": 35.5384,
+      "lon": -98.6884,
+      "threatLevel": "NONE",
+      "reasons": [
+        "No significant weather threats detected"
+      ],
+      "maxWindGustMph": 36.8,
+      "maxPrecipProbPct": 42,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "East Central University",
+      "lat": 34.7746,
+      "lon": -96.6783,
+      "threatLevel": "MODERATE",
+      "reasons": [
+        "Elevated precipitation probability: 70%",
+        "Thunder probability: 61%"
+      ],
+      "maxWindGustMph": 26.5,
+      "maxPrecipProbPct": 70,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Southeastern Oklahoma State University",
+      "lat": 33.9943,
+      "lon": -96.3926,
+      "threatLevel": "MODERATE",
+      "reasons": [
+        "Elevated precipitation probability: 62%",
+        "Thunder probability: 60%"
+      ],
+      "maxWindGustMph": 24.2,
+      "maxPrecipProbPct": 62,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Moore (OKC Metro)",
+      "lat": 35.3395,
+      "lon": -97.4867,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 55%"
+      ],
+      "maxWindGustMph": 38,
+      "maxPrecipProbPct": 55,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    },
+    {
+      "name": "Midwest City (Tinker AFB)",
+      "lat": 35.4495,
+      "lon": -97.3967,
+      "threatLevel": "LOW",
+      "reasons": [
+        "Elevated precipitation probability: 58%"
+      ],
+      "maxWindGustMph": 36.8,
+      "maxPrecipProbPct": 58,
+      "pressureRangeHpa": null,
+      "alertCount": 0,
+      "tornadoAlerts": 0
+    }
+  ],
+  "overallThreatLevel": "MODERATE"
+}
